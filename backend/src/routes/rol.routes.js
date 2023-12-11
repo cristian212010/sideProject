@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Rol_controller from '../controllers/rol.controllers.js';
 
-export const rol_router = ({rol_model}) =>{
+export const create_rol_router = ({rol_model}) =>{
 
     const rol_router = Router();
 

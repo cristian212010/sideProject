@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Tipo_documento_controller from '../controllers/tipo_documento.controllers.js';
 
-export const tipo_documento_router = ({tipo_documento_model}) =>{
+export const create_tipo_documento_router = ({tipo_documento_model}) =>{
 
     const tipo_documento_router = Router();
 
