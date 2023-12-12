@@ -22,7 +22,6 @@ const usuarioSchema = z.object({
         invalid_type_error: 'documento debe ser un string'
     }).min(1).max(20),
     password: z.string({
-        required_error: 'password es requerido',
         invalid_type_error: 'password debe ser un string'
     }).min(1).max(30)
 });
