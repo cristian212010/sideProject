@@ -27,6 +27,7 @@ class Usuario_controller {
             return res.json(newUsuario)
         } catch (error) {
             res.status(201).json({message: error})
+            console.error(error);
         }
     }
 }
