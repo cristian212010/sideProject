@@ -16,6 +16,8 @@ export const create_usuario_router = ({usuario_model}) =>{
         check('id_tipo_documento_fk').custom(documentoExiste),
         validateDocuments
     ], usuario_controller.create);
+    usuario_router.delete('/:id', usuario_controller.delete);
+    usuario_router.patch('/:id', usuario_controller.update);
 
     return usuario_router;
 }
