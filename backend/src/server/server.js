@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import mailerRoutes from "../routes/nodemailer.routes.js"
 import { create_tipo_documento_router } from '../routes/tipo_documento.routes.js';
 import { create_rol_router } from '../routes/rol.routes.js';
 import { create_especialidad_router } from '../routes/especialidad.routes.js';
@@ -15,6 +16,7 @@ class Server{
         this.app = express();
         this.port = process.env.PORT || 3000;
         this.paths = {
+            mailer : '/mailer',
             tipo_documento: '/api/tipo_documento',
             rol: '/api/rol',
             especialidad: '/api/especialidad',
@@ -30,6 +32,7 @@ class Server{
     }
 
     routes(){
+        this.app.use(this.paths.mailer, mailerRoutes)
         this.app.use(this.paths.tipo_documento, create_tipo_documento_router({tipo_documento_model: Tipo_documento_model})),
         this.app.use(this.paths.rol, create_rol_router({rol_model: Rol_model})),
         this.app.use(this.paths.especialidad, create_especialidad_router({especialidad_model: Especialidad_model})),
@@ -38,7 +41,7 @@ class Server{
 
     listen(){
         this.app.listen(this.port, ()=>{
-            console.log(`Server online`);
+            console.log(`Server online ${this.port}`);
         })
     }
 }
