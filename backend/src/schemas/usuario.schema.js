@@ -23,7 +23,11 @@ const usuarioSchema = z.object({
     }).min(1).max(20),
     password: z.string({
         invalid_type_error: 'password debe ser un string'
-    }).min(1).max(30)
+    }).min(1).max(30),
+    email: z.string({
+        required_error: 'email es requerido',
+        invalid_type_error: 'email debe ser un string'
+    }).min(1).max(255),
 });
 
 export function validateUsuario (input) {
