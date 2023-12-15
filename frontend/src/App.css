@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nutmeg&display=swap');
+
+:root {
+    --color-morado: #5E3AE2;
+    --color-amarillo: #F4B422;
+    --color-verde: #00AA80;
+    --color-azul: #000087;
+    --color-celeste: #2CAAFF;
+    --color-blanco: #E4E4DB;
+    --fuente-titulos: 'Poppins', sans-serif;
+    --fuente-cuerpo-texto: 'Roboto Mono', monospace;
+    --fuente-destacados: 'Nutmeg', serif; 
+}
