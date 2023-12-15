@@ -16,7 +16,7 @@ class Auth_controller {
                 return res.status(400).json({ msg: error });
             }
 
-            const token = await generateJWT(usuario.id_usuario);
+            const token = await generateJWT(usuario[0].id_usuario);
 
             res.json({
                 usuario,

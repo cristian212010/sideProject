@@ -9,11 +9,27 @@ const rolValido = async( id_rol='' )=>{
     }
 }
 
-const documentoExiste = async( id_tipo_documento = '' ) => {
-    const existeDocumento = await connection.query(`
+const tipoDocumentoExiste = async( id_tipo_documento = '' ) => {
+    const existeTipoDocumento = await connection.query(`
     SELECT * FROM tipo_documento WHERE id_tipo_documento = ?`, [id_tipo_documento]);
-    if(existeDocumento.length === 0){
+    if(existeTipoDocumento.length === 0){
         throw new Error(`El tipo de documento ${ id_tipo_documento }, no esta registrado en la base de datos`);
+    }
+}
+
+const documentoExiste = async( documento = '' ) => {
+    const existeDocumento = await connection.query(`
+    SELECT * FROM usuario WHERE documento = ?`, [documento]);
+    if(existeDocumento.length !== 0){
+        throw new Error(`El documento ${ documento }, ya esta registrado en la base de datos`);
+    }
+}
+
+const emailExiste = async( email = '' ) => {
+    const existeEmail = await connection.query(`
+    SELECT * FROM usuario WHERE email = ?`, [email]);
+    if(existeEmail.length !== 0){
+        throw new Error(`El email ${ email }, ya esta registrado en la base de datos`);
     }
 }
 
@@ -33,4 +49,4 @@ const especialidadExiste = async( id_especialidad = '') =>{
     }
 }
 
-export { rolValido, documentoExiste, usuarioExiste, especialidadExiste };
+export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, documentoExiste, emailExiste };
