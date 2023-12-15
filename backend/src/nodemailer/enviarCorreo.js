@@ -1,9 +1,10 @@
 import nodemailer from 'nodemailer';
 
 
-const enviarCorreo = async (req,res) =>{
-
+const enviarCorreo = async (data) =>{
 try {
+
+console.log(data);
 
 //contenido del archivo HTML
 const emailTemplate = `<!DOCTYPE html>
@@ -14,55 +15,65 @@ const emailTemplate = `<!DOCTYPE html>
     <title>Correo Electrónico</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <style>
-        /* Aplica la fuente a tu CSS */
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+    /* Aplica la fuente a tu CSS */
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
 
-        .padre{
-            background-color: #5E3AE2;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            width: 700px;
-        }
-        .astros{
-            width: 200px;
-        }
+    .padre{
 
-        .texto{
-            width: 400px;
-        }
-        .logo{
-            background-color: #E4E4DB;
-            border-radius: 2rem;
-            padding: 0 0.5rem;
-            width: 100px;
-            height: 50px;
-            margin-top: 10px;
-        }
-        .derechos{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
+        background: linear-gradient(121.06deg, rgba(51, 56, 111, 0.5) 0%, rgba(45, 44, 61, 0.5) 100%, rgba(84, 82, 121, 0.5) 100%), url(cid:fondo);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 800px;
+    }
+    .astros{
+        width: 180px;
+    }
 
-    </style>
+    .texto{
+        width: 400px;
+    }
+    .logo{
+        background-color: #E4E4DB;
+        border-radius: 2rem;
+        padding: 0 0.5rem;
+        width: 50px;
+        height: 50px;
+        margin-top: 10px;
+    }
+    
+    .derechos{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+</style>
 </head>
 <body>
 
     <div class="padre" style=" margin: 0 auto; padding: 20px; border: 1px solid #ccc;">
 
     
-        <img class="astros" src="cid:astro" alt="Campus">
+       
         <div class="texto">
 
             <h2 style="color: #E4E4DB; text-align: center;">Peticion de Informacion del Candidato</h2>
 
-            <p style="color: #E4E4DB; text-align: center; font-family: calc();">Este es un ejemplo de correo electrónico utilizando Nodemailer y una plantilla HTML básica.</p>
+            <p style="color: #E4E4DB; text-align: center;">El empleador: ${data.nombre}.</p>
+            <p style="color: #E4E4DB; text-align: center;">De la Empresa: ${data.empresa}.</p>
+            <p style="color: #E4E4DB; text-align: center;">Quisiera poder tener mas informacion acerca del candidato <NOMBRE CANDIDATO></NOMBRE CANDIDATO>.</p>
 
-            <p style="color: #E4E4DB; text-align: center;">Puedes personalizar este contenido según tus necesidades.</p>
+
+            <p style="color: #E4E4DB; text-align: center;">Los contactos de la empresa son:</p>
+            <p style="color: #E4E4DB; text-align: center;">Telefono: ${data.telefono}</p>
+            <p style="color: #E4E4DB; text-align: center;">Email: ${data.email}</p>
 
             <hr>
             <div class="derechos">
@@ -71,7 +82,7 @@ const emailTemplate = `<!DOCTYPE html>
             </div>
 
         </div>
-        <img class="astros" src="cid:astro" alt="Campus">
+       
 
     </div>
 
@@ -92,21 +103,21 @@ const transporter = nodemailer.createTransport({
 
 const imageAttachment = [
     {
-        filename: 'astro.png',
-        path: './src/nodemailer/img/astro.png',
-        cid: 'astro', // Identificador único
-    },
-    {
         filename: 'campus.png',
         path: './src/nodemailer/img/campus.png',
         cid: 'campus', // Identificador único
+    },
+    {
+        filename: 'img89.jpg',
+        path: './src/nodemailer/img/img89.jpg',
+        cid: 'fondo', // Identificador único
     }
 ];
 
 // Detalles del correo electrónico
 const mailOptions = {
     from: 'Contrataciones',
-    to: process.env.NODE_USER,
+    to: `${data.correo}`,
     subject: 'Testeando',
     html: emailTemplate,
     attachments: imageAttachment
@@ -118,7 +129,7 @@ transporter.sendMail(mailOptions, (error) => {
         console.error(error);
     } else {
         console.log('Correo electrónico enviado');
-        res.json("maincra")
+        
     }
 });
 

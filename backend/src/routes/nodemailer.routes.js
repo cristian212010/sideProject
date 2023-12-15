@@ -1,10 +1,10 @@
 import {Router} from 'express';
 
-import enviarCorreo from '../nodemailer/enviarCorreo.js';
+import Datos from '../nodemailer/datosNodemailer.js';
 
 
 const router = Router()
 
-router.post('/', enviarCorreo)
+router.post('/', Datos)
 
 export default router
