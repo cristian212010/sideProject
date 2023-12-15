@@ -11,6 +11,7 @@ export const create_usuario_router = ({usuario_model}) =>{
     const usuario_controller = new Usuario_controller({usuario_model});
 
     usuario_router.get('/', usuario_controller.getAll);
+    usuario_router.get('/activos', usuario_controller.getAssets);
     usuario_router.post('/', [
         check('id_rol_fk').custom(rolValido),
         check('id_tipo_documento_fk').custom(documentoExiste),

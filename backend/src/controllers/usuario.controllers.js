@@ -13,6 +13,15 @@ class Usuario_controller {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    
+    getAssets = async(req, res) =>{
+        try {
+            const usuario = await this.usuario_model.getAssets();
+            return res.json(usuario);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 
     create = async(req, res) =>{
         try {
