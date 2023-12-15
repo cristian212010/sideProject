@@ -7,7 +7,19 @@ class Usuario_model {
 
     static async getAll(){
         try {
-            const usuario = await connection.query(`SELECT * FROM usuario`);
+            const usuario = await connection.query(`
+            SELECT
+                usuario.id_usuario,
+                usuario.nombres,
+                usuario.apellidos,
+                usuario.documento,
+                tipo_documento.tipo_documento AS tipo_documento_usuario,
+                rol.rol AS rol_usuario,
+                usuario.password
+            FROM
+                usuario
+            JOIN tipo_documento ON usuario.id_tipo_documento_fk = tipo_documento.id_tipo_documento
+            JOIN rol ON usuario.id_rol_fk = rol.id_rol;`);
             return usuario;
         } catch (error) {
             console.error('Error en getAll:', error)
@@ -47,7 +59,7 @@ class Usuario_model {
             }
 
             if (user.estado == '0') {
-                return { error: "Estado Inactivo" };
+                return { error: "Estado del usuario Inactivo" };
             }
 
             const validPassword = bcryptjs.compareSync(password, user.password);
