@@ -21,15 +21,14 @@ const emailTemplate = `<!DOCTYPE html>
     }
 
     .padre{
-
         background: linear-gradient(121.06deg, rgba(51, 56, 111, 0.5) 0%, rgba(45, 44, 61, 0.5) 100%, rgba(84, 82, 121, 0.5) 100%), url(cid:fondo);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        height: 100vh;
+        max-height:346px;
+        justify-items: center;
         width: 800px;
     }
     .astros{
@@ -38,6 +37,10 @@ const emailTemplate = `<!DOCTYPE html>
 
     .texto{
         width: 400px;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 1rem;
+        border-radius: 2rem;
+
     }
     .logo{
         background-color: #E4E4DB;
