@@ -1,0 +1,98 @@
+.form-login{
+    background-color: #ffffff;
+    opacity: 1;
+    width: 30rem;
+    height: 34rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem 0 0.5rem 0;
+    animation: aparecer 2s;
+}
+
+.logo-login{
+    width: 6rem;
+}
+
+.h3-login{
+    font-weight: 10;
+    font-size: 1.5rem;
+    font-family: var(--fuente-titulos);
+}
+
+.p-login{
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+    font-family: var(--fuente-cuerpo-texto);
+    width: 20rem;
+}
+
+.div-input{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    color: #686868;
+}
+
+.div-input {
+    position: relative;
+    margin-bottom: 20px;
+}
+  
+.input-login {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #6d6d6d;
+    background-color: #f8f8f8;
+    font-family: var(--fuente-cuerpo-texto);
+}
+  
+.input-login::placeholder {
+    color: #aaa;
+}
+  
+.btn-login {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--fuente-titulos);
+}
+  
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.p-problemas{
+    font-size: 11px;
+    color: #888;
+    font-weight: 300;
+    font-family: var(--fuente-destacados);
+    max-width: 22rem;
+    margin-top: 2rem
+}
+
+.invisible {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s; 
+}
+
+@keyframes aparecer{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+  

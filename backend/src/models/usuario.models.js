@@ -40,7 +40,10 @@ class Usuario_model {
     static async getUserByDocumento({ documento }){
         try {
             const usuario = await connection.query(`
-                SELECT * FROM usuario WHERE documento = ?
+                SELECT usuario.*, rol.rol AS rol
+                FROM usuario
+                JOIN rol ON usuario.id_rol_fk = rol.id_rol
+                WHERE usuario.documento = ?;
             `, [documento]);
             return usuario;
         } catch (error) {

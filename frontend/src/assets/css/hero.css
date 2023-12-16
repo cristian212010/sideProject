@@ -17,7 +17,7 @@
     background-size: cover;
     background-position: center;
     filter: brightness(0.5);
-    background-image: url("https://wallpapercave.com/wp/wp6494489.jpg");
+    background-image: url("../img/background1.jpg");
 }
 
 .background::before {
