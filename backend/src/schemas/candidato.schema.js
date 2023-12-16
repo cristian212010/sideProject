@@ -9,6 +9,10 @@ const candidatoSchema = z.object({
         required_error: 'id_especialidad_fk es requerido',
         invalid_type_error: 'id_especialidad_fk debe ser un number'
     }).int().positive(),
+    id_nivel_ingles_fk: z.number({
+        required_error: 'id_nivel_ingles_fk es requerido',
+        invalid_type_error: 'id_nivel_ingles_fk debe ser un number'
+    }).int().positive(),
     avatar: z.string({
         required_error: 'avatar es requerido',
         invalid_type_error: 'avatar debe ser un string'
