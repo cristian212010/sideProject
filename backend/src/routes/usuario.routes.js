@@ -17,6 +17,7 @@ export const create_usuario_router = ({usuario_model}) =>{
         isAdminRole
     ], usuario_controller.getAll);
     usuario_router.get('/activos', usuario_controller.getAssets);
+    usuario_router.get('/getOne/:documento', usuario_controller.getUserByDocumento);
     usuario_router.post('/', [
         validateJWT,
         isAdminRole,

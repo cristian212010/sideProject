@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 4rem 0 4rem;
+    padding: 0.5rem 4rem 0.5rem 4rem;
     z-index: 1000;
 }
 
@@ -176,3 +176,21 @@
     background-color: #fff;
 }
   
+.user-circle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+  
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+}
+  
+.user-name {
+    color: white;
+    font-size: 14px;
+}

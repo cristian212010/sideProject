@@ -23,6 +23,16 @@ class Usuario_controller {
         }
     }
 
+    getUserByDocumento = async(req, res) =>{
+        try {
+            const documento = req.params.documento;
+            const usuario = await this.usuario_model.getUserByDocumento({ documento });
+            return res.json(usuario);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
     create = async(req, res) =>{
         try {
             const result = validateUsuario(req.body);
