@@ -13,3 +13,8 @@
     --fuente-cuerpo-texto: 'Roboto Mono', monospace;
     --fuente-destacados: 'Nutmeg', serif; 
 }
+
+body {
+  margin: 0;
+  padding: 0;
+}

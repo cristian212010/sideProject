@@ -1,0 +1,50 @@
+.hero-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    max-height: 30rem;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5);
+    background-image: url("https://wallpapercave.com/wp/wp6494489.jpg");
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(5px);
+}
+
+.content {
+    text-align: center;
+    z-index: 1;
+    max-width: 40rem;
+    color: #f0f0f0;
+}
+
+.hero-titulo{
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-family: var(--fuente-titulos);
+}
+
+.hero-texto{
+    font-size: 1.2rem;
+    margin: 0; 
+    font-family: var(--fuente-cuerpo-texto);
+}
