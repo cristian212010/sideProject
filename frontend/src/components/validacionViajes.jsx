@@ -2,7 +2,6 @@ import React from 'react';
 
 function TuComponente({ respuesta }) {
 
-console.log('Valor de respuesta en TuComponente:', respuesta);
   return (
     <div>
       {respuesta === 'si' ? (

@@ -7,6 +7,7 @@ import '../assets/css/navbar.css';
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [documento, setDocumento] = useState(null);
+  const [usuario, setUsuario] = useState(null);
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -19,8 +20,7 @@ const Navbar = () => {
   const getUser = async(documento)=> {
     try {
       const userResponse = await axios.get(`http://localhost:6996/api/usuario/getOne/${documento}`);
-      console.log(userResponse.data[0].rol);
-      return userResponse.data[0].rol;
+      return userResponse.data[0];
     } catch (error) {
       console.error("Error fetching user:", error);
       return null;
@@ -32,8 +32,10 @@ const Navbar = () => {
     const fetchUserData = async () => {
       const doc = localStorage.getItem("documento") || null;
       if (doc !== null) {
-        const userRole = await getUser(doc);
-        setDocumento(userRole);
+        const usuario = await getUser(doc);
+        console.log(usuario);
+        setDocumento(usuario.rol);
+        setUsuario(usuario);
       }
     }
     fetchUserData();
@@ -61,6 +63,12 @@ const Navbar = () => {
           )}
         </ul>
       </div>
+      {documento !== null && (
+        <div className="user-circle" onClick={handleLogout}>
+          <img src={usuario?.avatar || '../assets/img/avatar.jpg'} alt="avatar" className="user-avatar" />
+          <span className="user-name">{usuario.nombres}</span>
+        </div>
+      )}
       <div className="container-button">
       {documento === null ? (
           <Link to='/login'>
@@ -72,18 +80,12 @@ const Navbar = () => {
             </button>
           </Link>
         ) : (
-          <div className="user-cerrar-sesion">
-            <div className="user-circle" onClick={handleLogout}>
-              <img src={documento?.avatar || 'ruta_por_defecto'} alt="User Avatar" className="user-avatar" />
-              <span className="user-name">{'hola'}</span>
-            </div>
-            <button className="button_navbar" onClick={handleLogout}>
-              <span className="button_lg">
-                <span className="button_sl"></span>
-                <span className="button_text">Cerrar Sesión</span>
-              </span>
-            </button>
-          </div>
+          <button className="button_navbar" onClick={handleLogout}>
+            <span className="button_lg">
+              <span className="button_sl"></span>
+              <span className="button_text">Cerrar Sesión</span>
+            </span>
+          </button>
         )}
       </div>
     </div>
