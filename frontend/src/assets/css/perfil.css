@@ -1,36 +1,47 @@
-.card {
+.card_container_form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_form {
     --accent-color: #ffd426;
     position: relative;
-    width: 240px;
+    top: 5rem;
+    width: 300px;
+    height: 480px;
     background: white;
+    border: solid;
     border-radius: 1rem;
     padding: 0.3rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 50px 30px -20px;
     transition: all 0.5s ease-in-out;
   }
   
-  .card .image-container {
+  .card_form .image-container_form {
     position: relative;
     width: 100%;
-    height: 190px;
+    height: 220px;
     border-radius: 0.7rem;
     border-top-right-radius: 4rem;
     margin-bottom: 1rem;
     background-color: gray;
   }
   
-  .card .image-container img,
-  .card .image-container .svg {
+  .card_form .image-container_form img,
+  .card_form .image-container_form .svg {
     width: 100%;
     height: 100%;
     border-radius: inherit;
   }
   
-  .card .image-container .price {
+  .card_form .image-container_form .price_form {
     position: absolute;
     right: 0.7rem;
     bottom: -1rem;
     background: white;
+    border: solid 2px;
     color: var(--accent-color);
     font-weight: 900;
     font-size: 0.9rem;
@@ -39,62 +50,68 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 15px 0px;
   }
   
-  .card .content {
+  .content_form {
     padding: 0px 0.8rem;
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
-  .card .content .brand {
+  .card_form .content_form .brand_form {
     font-weight: 900;
     color: #a6a6a6;
   }
   
-  .card .content .product-name {
+  .card_form .content_form .product-name_form {
     font-weight: 700;
     color: #666666;
     font-size: 0.7rem;
     margin-bottom: 1rem;
   }
   
-  .card .button-container {
+  .card_form .button-container_form {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 0.3rem;
+    text-align: center;
+    margin-top: 4.8rem;
   }
   
-  .card .button-container .button {
+  .card_form .button-container_form .button_form {
     border-radius: 1.4rem 1.4rem 0.7rem 0.7rem;
     border: none;
     padding: 0.5rem 0;
+    justify-content: center;
     background: var(--accent-color);
     color: white;
     font-weight: 900;
     cursor: pointer;
   }
   
-  .card .button-container .button:hover {
+  .card_form .button-container_form .button_form:hover {
     background: orangered;
   }
   
-  .card .button-container .buy-button {
+  .card_form .button-container_form .buy-button_form {
     flex: auto;
     max-width: 175px;
   }
   
-  .card .button-container .cart-button {
+  .card_form .button-container_form .cart-button_form {
     display: grid;
     place-content: center;
     width: 50px;
   }
   
-  .card .button-container .cart-button svg {
+  .card_form .button-container_form .cart-button_form svg {
     width: 15px;
     fill: white;
   }
   
-  .card:hover {
+  .card_form:hover {
     transform: scale(1.03);
   }
   
@@ -114,4 +131,137 @@
     75% {
       transform: scale(1.5, 2.05);
     }
+  }
+
+  .input_nombre{
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .input_nombre input{
+    width: 130px;
+    height: 20px;
+  }
+
+  .espec_form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .espec_form select{
+    padding: 3px 25px;
+    font-family:var( --fuente-cuerpo-texto);
+  }
+
+  .espec_viaje_form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.8rem 0;  
+    gap: 3.7rem;
+  }
+
+  .Viaje_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-label {
+    position: relative;
+    padding-left: 30px; 
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .custom-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  
+   
+    &:after {
+      content: '\2713'; 
+      font-size: 18px;
+      color: #008000; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    &:before {
+      content: '\2717'; 
+      font-size: 18px;
+      color: #FF0000; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .custom-checkbox:checked + .checkmark:after {
+    display: block;
+  }
+  
+
+  .custom-checkbox:checked + .checkmark:before {
+    display: none;
   }
