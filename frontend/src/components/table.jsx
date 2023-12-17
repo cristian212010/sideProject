@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DataTable from 'react-data-table-component'
 import '../assets/css/table.css'; 
+import * as XLSX from 'xlsx';
 import { Button } from '@chakra-ui/react';
 
 import {
@@ -25,7 +26,12 @@ import {
 const Table = () => {
         const [APIData, setAPIData] = useState([]);
         const [filteredData, setFilteredData] = useState([]);
-        const { isOpen, onOpen, onClose } = useDisclosure()
+        const { isOpen, onOpen, onClose } = useDisclosure();
+        const [excelData, setExcelData] = useState(null);
+        const [excelFile, setExcelFile] = useState(null);
+        const [excelFileError, setExcelFileError] = useState(null);
+
+        console.log(excelData);
 
         useEffect(() => {
           const token = localStorage.getItem('token');
@@ -39,30 +45,78 @@ const Table = () => {
             setFilteredData(response.data);
           })
         },[])
+
+        const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+        const handleFile = (e) =>{
+          let selectFile = e.target.files[0];
+          if (selectFile) {
+            console.log(selectFile.type);
+            if (selectFile&&fileType.includes(selectFile.type)) {
+              let reader = new FileReader();
+              reader.readAsArrayBuffer(selectFile);
+              reader.onload=(e)=>{
+                setExcelFileError(null);
+                setExcelFile(e.target.result);
+              }
+            }
+            else{
+              setExcelFileError('Por favor seleccione solo un archivo tipo excel');
+              setExcelFile(null);
+            }
+          }
+          else{
+            console.log('Seleccione el archivo');
+          }
+        }
+
+        const handleSubmit = (e) =>{
+          e.preventDefault();
+          if (excelFile!==null) {
+            const wrokbook = XLSX.read(excelFile, {type: 'buffer'});
+            const worksheetName = wrokbook.SheetNames[0];
+            const workSheet = wrokbook.Sheets[worksheetName];
+            const data = XLSX.utils.sheet_to_json(workSheet);
+            setExcelData(data);
+            const token = localStorage.getItem('token');
+            axios.post('http://localhost:6996/api/usuario', {
+              headers: {
+                'x-api-token-jwt': token,
+              },
+            })
+            .then((response) => {
+              setAPIData(response.data);
+              setFilteredData(response.data);
+            })
+          }
+          else{
+
+          }
+        }
+
         const columns = [
         {
             "name": "Nombres",
-            selector: 'nombres',
+            selector: (row) => row.nombres,
             sortable: true
         },
         {
             "name": "Apellidos",
-            selector: 'apellidos',
+            selector: (row) => row.apellidos,
             sortable: true
         },
         {
             "name": "Rol",
-            selector: 'rol_usuario',
+            selector: (row) => row.rol_usuario,
             sortable: true
         },
         {
             "name" : "Documento",
-            selector: 'documento',
+            selector: (row) => row.documento,
             sortable: true
         },
         {
             "name": "tipo_documento_usuario",
-            selector: 'tipo_documento_usuario',
+            selector: (row) => row.tipo_documento_usuario,
             sortable: true
         }
             ]
@@ -123,9 +177,13 @@ const Table = () => {
                     placeholder="Buscar..."
                     onChange={handleSearch}
             />
-            <label className="custom-file-input">
-              <input type="file"/>
-            </label>
+            
+            <form className='form-file' onSubmit={handleSubmit}>
+              <label>
+                <input type="file" accept=".xlsx" onChange={handleFile} className='input-file'/>
+              </label>
+              <button className='btn-file'>Enviar</button>
+            </form>
 
             <Button colorScheme='blue' onClick={onOpen}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
