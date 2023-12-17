@@ -24,6 +24,8 @@ import {
 
 const Table = () => {
         const [APIData, setAPIData] = useState([]);
+        const [filteredData, setFilteredData] = useState([]);
+        const { isOpen, onOpen, onClose } = useDisclosure()
 
         useEffect(() => {
           const token = localStorage.getItem('token');
@@ -34,32 +36,33 @@ const Table = () => {
           })
           .then((response) => {
             setAPIData(response.data);
+            setFilteredData(response.data);
           })
         },[])
         const columns = [
         {
             "name": "Nombres",
-            selector: row => row.nombres,
+            selector: 'nombres',
             sortable: true
         },
         {
             "name": "Apellidos",
-            selector: row => row.apellidos,
+            selector: 'apellidos',
             sortable: true
         },
         {
             "name": "Rol",
-            selector: row => row.rol_usuario,
+            selector: 'rol_usuario',
             sortable: true
         },
         {
             "name" : "Documento",
-            selector: row => row.documento,
+            selector: 'documento',
             sortable: true
         },
         {
             "name": "tipo_documento_usuario",
-            selector: row => row.tipo_documento_usuario,
+            selector: 'tipo_documento_usuario',
             sortable: true
         }
             ]
@@ -97,25 +100,19 @@ const Table = () => {
             },
           },
           };
-          console.log(APIData);
-        const [searchText, setSearchText] = useState('');
-        const [filteredData, setFilteredData] = useState(APIData);
-        const { isOpen, onOpen, onClose } = useDisclosure()
       
-        const handleChangeSearch = (e) => {
-          const searchValue = e.target.value;
-          setSearchText(searchValue);
-      
-          const filtered = APIData.filter(
-            (item) =>
-              item.nombre.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.apellido.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.documento.includes(searchValue) ||
-              item.edad.toString().includes(searchValue) ||
-              item.email.toLowerCase().includes(searchValue.toLowerCase())
+          const handleSearch = (e) => {
+          const searchTerm  = e.target.value.toLowerCase();
+          const filteredResults = APIData.filter(row =>
+            row.nombres.toLowerCase().includes(searchTerm) ||
+            row.apellidos.toLowerCase().includes(searchTerm) ||
+            row.rol_usuario.toLowerCase().includes(searchTerm) ||
+            row.documento.toLowerCase().includes(searchTerm) ||
+            row.tipo_documento_usuario.toLowerCase().includes(searchTerm)
           );
-      
-          setFilteredData(filtered);
+    
+        
+          setFilteredData(filteredResults);
           };
   return (
     <div>
@@ -124,8 +121,7 @@ const Table = () => {
         <div className='buscador_usuarios'>
             <input  type="text"
                     placeholder="Buscar..."
-                    value={searchText}
-                    onChange={handleChangeSearch}
+                    onChange={handleSearch}
             />
             <label className="custom-file-input">
               <input type="file"/>
