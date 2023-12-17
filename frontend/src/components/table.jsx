@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DataTable from 'react-data-table-component'
 import '../assets/css/table.css'; 
+import * as XLSX from 'xlsx';
 import { Button } from '@chakra-ui/react';
-/* Modal dependencias */
+
 import {
   Modal,
   ModalOverlay,
@@ -14,8 +16,6 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-/* Formulario dependencia */
-
 import {
   FormControl,
   FormLabel,
@@ -24,141 +24,102 @@ import {
 } from '@chakra-ui/react'
 
 const Table = () => {
+        const [APIData, setAPIData] = useState([]);
+        const [filteredData, setFilteredData] = useState([]);
+        const { isOpen, onOpen, onClose } = useDisclosure();
+        const [excelData, setExcelData] = useState(null);
+        const [excelFile, setExcelFile] = useState(null);
+        const [excelFileError, setExcelFileError] = useState(null);
+
+        console.log(excelData);
+
+        useEffect(() => {
+          const token = localStorage.getItem('token');
+          axios.get('http://localhost:6996/api/usuario', {
+            headers: {
+              'x-api-token-jwt': token,
+            },
+          })
+          .then((response) => {
+            setAPIData(response.data);
+            setFilteredData(response.data);
+          })
+        },[])
+
+        const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+        const handleFile = (e) =>{
+          let selectFile = e.target.files[0];
+          if (selectFile) {
+            console.log(selectFile.type);
+            if (selectFile&&fileType.includes(selectFile.type)) {
+              let reader = new FileReader();
+              reader.readAsArrayBuffer(selectFile);
+              reader.onload=(e)=>{
+                setExcelFileError(null);
+                setExcelFile(e.target.result);
+              }
+            }
+            else{
+              setExcelFileError('Por favor seleccione solo un archivo tipo excel');
+              setExcelFile(null);
+            }
+          }
+          else{
+            console.log('Seleccione el archivo');
+          }
+        }
+
+        const handleSubmit = (e) =>{
+          e.preventDefault();
+          if (excelFile!==null) {
+            const wrokbook = XLSX.read(excelFile, {type: 'buffer'});
+            const worksheetName = wrokbook.SheetNames[0];
+            const workSheet = wrokbook.Sheets[worksheetName];
+            const data = XLSX.utils.sheet_to_json(workSheet);
+            setExcelData(data);
+            const token = localStorage.getItem('token');
+            axios.post('http://localhost:6996/api/usuario', {
+              headers: {
+                'x-api-token-jwt': token,
+              },
+            })
+            .then((response) => {
+              setAPIData(response.data);
+              setFilteredData(response.data);
+            })
+          }
+          else{
+
+          }
+        }
+
         const columns = [
         {
-            "name": "Nombre",
-            selector: row => row.nombre,
+            "name": "Nombres",
+            selector: (row) => row.nombres,
             sortable: true
         },
         {
-            "name": "Apellido",
-            selector: row => row.apellido,
+            "name": "Apellidos",
+            selector: (row) => row.apellidos,
             sortable: true
         },
         {
-            "name": "Documento",
-            selector: row => row.documento,
+            "name": "Rol",
+            selector: (row) => row.rol_usuario,
             sortable: true
         },
         {
-            "name" : "Edad",
-            selector: row => row.edad,
+            "name" : "Documento",
+            selector: (row) => row.documento,
             sortable: true
         },
         {
-            "name": "email",
-            selector: row => row.email,
+            "name": "tipo_documento_usuario",
+            selector: (row) => row.tipo_documento_usuario,
             sortable: true
         }
             ]
-
-        const userData = [
-        {
-          id: 1,
-          nombre: "Juan",
-          apellido: "Pérez",
-          documento: "123456789",
-          edad: "25",
-          email: "juan.perez@example.com",
-        },
-        {
-          id: 2,
-          nombre: "María",
-          apellido: "Gómez",
-          documento: "987654321",
-          edad: "30",
-          email: "maria.gomez@example.com",
-        },
-        {
-          id: 3,
-          nombre: "Carlos",
-          apellido: "Rodríguez",
-          documento: "456789123",
-          edad: "28",
-          email: "carlos.rodriguez@example.com",
-        },
-        {
-            id: 4,
-            nombre: "Ana",
-            apellido: "López",
-            documento: "789123456",
-            edad: 22,
-            email: "ana.lopez@example.com",
-          },
-          {
-            id: 5,
-            nombre: "Luis",
-            apellido: "Martínez",
-            documento: "654321987",
-            edad: 35,
-            email: "luis.martinez@example.com",
-          },
-          {
-            id: 6,
-            nombre: "Isabel",
-            apellido: "Hernández",
-            documento: "321456789",
-            edad: 29,
-            email: "isabel.hernandez@example.com",
-          },
-          {
-            id: 7,
-            nombre: "Javier",
-            apellido: "Gutiérrez",
-            documento: "876543210",
-            edad: 27,
-            email: "javier.gutierrez@example.com",
-          },
-          {
-            id: 8,
-            nombre: "Carmen",
-            apellido: "Díaz",
-            documento: "234567891",
-            edad: 31,
-            email: "carmen.diaz@example.com",
-          },
-          {
-            id: 9,
-            nombre: "Elena",
-            apellido: "Sánchez",
-            documento: "109876543",
-            edad: 26,
-            email: "elena.sanchez@example.com",
-          },
-          {
-            id: 10,
-            nombre: "Miguel",
-            apellido: "Ramírez",
-            documento: "210987654",
-            edad: 32,
-            email: "miguel.ramirez@example.com",
-          },
-          {
-            id: 11,
-            nombre: "Laura",
-            apellido: "Fernández",
-            documento: "987654321",
-            edad: 28,
-            email: "laura.fernandez@example.com",
-          },
-          {
-            id: 12,
-            nombre: "Diego",
-            apellido: "Luna",
-            documento: "876543210",
-            edad: 33,
-            email: "diego.luna@example.com",
-          },
-          {
-            id: 13,
-            nombre: "Sofía",
-            apellido: "García",
-            documento: "543210987",
-            edad: 29,
-            email: "sofia.garcia@example.com",
-          },
-        
-          ];
 
         const customStyles = {
         headRow: {
@@ -193,26 +154,19 @@ const Table = () => {
             },
           },
           };
-
-        const [searchText, setSearchText] = useState('');
-        const [filteredData, setFilteredData] = useState(userData);
-        const { isOpen, onOpen, onClose } = useDisclosure()
       
-        const handleChangeSearch = (e) => {
-          const searchValue = e.target.value;
-          setSearchText(searchValue);
-      
-          // Filtrar los datos localmente
-          const filtered = userData.filter(
-            (item) =>
-              item.nombre.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.apellido.toLowerCase().includes(searchValue.toLowerCase()) ||
-              item.documento.includes(searchValue) ||
-              item.edad.toString().includes(searchValue) ||
-              item.email.toLowerCase().includes(searchValue.toLowerCase())
+          const handleSearch = (e) => {
+          const searchTerm  = e.target.value.toLowerCase();
+          const filteredResults = APIData.filter(row =>
+            row.nombres.toLowerCase().includes(searchTerm) ||
+            row.apellidos.toLowerCase().includes(searchTerm) ||
+            row.rol_usuario.toLowerCase().includes(searchTerm) ||
+            row.documento.toLowerCase().includes(searchTerm) ||
+            row.tipo_documento_usuario.toLowerCase().includes(searchTerm)
           );
-      
-          setFilteredData(filtered);
+    
+        
+          setFilteredData(filteredResults);
           };
   return (
     <div>
@@ -221,12 +175,15 @@ const Table = () => {
         <div className='buscador_usuarios'>
             <input  type="text"
                     placeholder="Buscar..."
-                    value={searchText}
-                    onChange={handleChangeSearch}
+                    onChange={handleSearch}
             />
-            <label class="custom-file-input">
-              <input type="file"/>
-            </label>
+            
+            <form className='form-file' onSubmit={handleSubmit}>
+              <label>
+                <input type="file" accept=".xlsx" onChange={handleFile} className='input-file'/>
+              </label>
+              <button className='btn-file'>Enviar</button>
+            </form>
 
             <Button colorScheme='blue' onClick={onOpen}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
