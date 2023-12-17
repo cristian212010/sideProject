@@ -4,7 +4,7 @@ function TuComponente({ respuesta }) {
 
   return (
     <div>
-      {respuesta === 'si' ? (
+      {respuesta === 1 ? (
         <span role="img" aria-label="Chulo">&#10004;</span>
       ) : (
         <span role="img" aria-label="Equis">&#10060;</span>

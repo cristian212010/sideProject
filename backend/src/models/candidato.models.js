@@ -37,12 +37,16 @@ class Candidato_model{
                     nivel_ingles.nivel_ingles as nivel_de_ingles,
                     candidato.avatar,
                     candidato.disponibilidad_viajar,
-                    candidato.descripcion
+                    candidato.descripcion,
+                    GROUP_CONCAT(tecnologia.tecnologia) as tecnologias
                 FROM candidato
                 JOIN usuario ON candidato.id_usuario_fk = usuario.id_usuario
                 JOIN especialidad ON candidato.id_especialidad_fk = especialidad.id_especialidad
                 JOIN nivel_ingles ON candidato.id_nivel_ingles_fk = nivel_ingles.id_nivel_ingles
-                WHERE candidato.estado = 1; 
+                LEFT JOIN candidato_tecnologia ON candidato.id_candidato = candidato_tecnologia.id_candidato_fk
+                LEFT JOIN tecnologia ON candidato_tecnologia.id_tecnologia_fk = tecnologia.id_tecnologia
+                WHERE candidato.estado = 1
+                GROUP BY candidato.id_candidato;        
             `);
             return usuario;
         } catch (error) {
