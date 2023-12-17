@@ -1,0 +1,115 @@
+.Table_Container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    top: 8rem;
+    align-items: center;
+}
+
+.Table_Container .tabla{
+    min-width: 80rem;
+    max-height: 1rem;
+}
+
+.buscador_usuarios{
+    display: flex;
+    flex-direction: row;
+    margin-bottom:0.5rem ;
+    position: relative;
+    gap: 14rem;
+}
+
+.form-file {
+  display: flex;
+  gap: 1rem;
+}
+
+.input-file {
+  background-color: #E5F2E5;
+}
+
+.btn-file{
+  background-color: #2063c7;
+  padding: 0 1rem 0 1rem;
+}
+
+.buscador_usuarios input{
+    padding-right: 0.5rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    border: solid 1px gray;
+    border-radius: 0.5rem;
+}
+
+button {
+    border: none;
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066ff;
+    color: #ffffff;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    user-select: none;
+    gap: 0.75rem;
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    transition: all .6s ease;
+  }
+  
+  button:hover {
+    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+  }
+  
+  button:focus,button:active {
+    opacity: .85;
+    box-shadow: none;
+  }
+  
+  button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+
+
+  .custom-file-input {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .custom-file-input input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .custom-file-input::before {
+    content: 'Seleccionar archivo';
+    display: inline-block;
+    background: #3498db;
+    color: #fff;
+    border: 1px solid #2980b9;
+    border-radius: 5px;
+    padding: 6px 12px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .custom-file-input:hover::before {
+    border-color: #3cb0fd;
+  }
+
+  .grupo_btn{
+    display: flex;
+    margin-top: 1rem;
+  }
