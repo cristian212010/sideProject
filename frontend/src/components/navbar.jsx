@@ -33,7 +33,6 @@ const Navbar = () => {
       const doc = localStorage.getItem("documento") || null;
       if (doc !== null) {
         const usuario = await getUser(doc);
-        console.log(usuario);
         setDocumento(usuario.rol);
         setUsuario(usuario);
       }
