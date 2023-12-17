@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DataTable from 'react-data-table-component'
 import '../assets/css/table.css'; 
 import { Button } from '@chakra-ui/react';
-/* Modal dependencias */
+
 import {
   Modal,
   ModalOverlay,
@@ -14,8 +15,6 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-/* Formulario dependencia */
-
 import {
   FormControl,
   FormLabel,
@@ -24,141 +23,46 @@ import {
 } from '@chakra-ui/react'
 
 const Table = () => {
+        const [APIData, setAPIData] = useState([]);
+
+        useEffect(() => {
+          const token = localStorage.getItem('token');
+          axios.get('http://localhost:6996/api/usuario', {
+            headers: {
+              'x-api-token-jwt': token,
+            },
+          })
+          .then((response) => {
+            setAPIData(response.data);
+          })
+        },[])
         const columns = [
         {
-            "name": "Nombre",
-            selector: row => row.nombre,
+            "name": "Nombres",
+            selector: row => row.nombres,
             sortable: true
         },
         {
-            "name": "Apellido",
-            selector: row => row.apellido,
+            "name": "Apellidos",
+            selector: row => row.apellidos,
             sortable: true
         },
         {
-            "name": "Documento",
+            "name": "Rol",
+            selector: row => row.rol_usuario,
+            sortable: true
+        },
+        {
+            "name" : "Documento",
             selector: row => row.documento,
             sortable: true
         },
         {
-            "name" : "Edad",
-            selector: row => row.edad,
-            sortable: true
-        },
-        {
-            "name": "email",
-            selector: row => row.email,
+            "name": "tipo_documento_usuario",
+            selector: row => row.tipo_documento_usuario,
             sortable: true
         }
             ]
-
-        const userData = [
-        {
-          id: 1,
-          nombre: "Juan",
-          apellido: "Pérez",
-          documento: "123456789",
-          edad: "25",
-          email: "juan.perez@example.com",
-        },
-        {
-          id: 2,
-          nombre: "María",
-          apellido: "Gómez",
-          documento: "987654321",
-          edad: "30",
-          email: "maria.gomez@example.com",
-        },
-        {
-          id: 3,
-          nombre: "Carlos",
-          apellido: "Rodríguez",
-          documento: "456789123",
-          edad: "28",
-          email: "carlos.rodriguez@example.com",
-        },
-        {
-            id: 4,
-            nombre: "Ana",
-            apellido: "López",
-            documento: "789123456",
-            edad: 22,
-            email: "ana.lopez@example.com",
-          },
-          {
-            id: 5,
-            nombre: "Luis",
-            apellido: "Martínez",
-            documento: "654321987",
-            edad: 35,
-            email: "luis.martinez@example.com",
-          },
-          {
-            id: 6,
-            nombre: "Isabel",
-            apellido: "Hernández",
-            documento: "321456789",
-            edad: 29,
-            email: "isabel.hernandez@example.com",
-          },
-          {
-            id: 7,
-            nombre: "Javier",
-            apellido: "Gutiérrez",
-            documento: "876543210",
-            edad: 27,
-            email: "javier.gutierrez@example.com",
-          },
-          {
-            id: 8,
-            nombre: "Carmen",
-            apellido: "Díaz",
-            documento: "234567891",
-            edad: 31,
-            email: "carmen.diaz@example.com",
-          },
-          {
-            id: 9,
-            nombre: "Elena",
-            apellido: "Sánchez",
-            documento: "109876543",
-            edad: 26,
-            email: "elena.sanchez@example.com",
-          },
-          {
-            id: 10,
-            nombre: "Miguel",
-            apellido: "Ramírez",
-            documento: "210987654",
-            edad: 32,
-            email: "miguel.ramirez@example.com",
-          },
-          {
-            id: 11,
-            nombre: "Laura",
-            apellido: "Fernández",
-            documento: "987654321",
-            edad: 28,
-            email: "laura.fernandez@example.com",
-          },
-          {
-            id: 12,
-            nombre: "Diego",
-            apellido: "Luna",
-            documento: "876543210",
-            edad: 33,
-            email: "diego.luna@example.com",
-          },
-          {
-            id: 13,
-            nombre: "Sofía",
-            apellido: "García",
-            documento: "543210987",
-            edad: 29,
-            email: "sofia.garcia@example.com",
-          },
-        
-          ];
 
         const customStyles = {
         headRow: {
@@ -193,17 +97,16 @@ const Table = () => {
             },
           },
           };
-
+          console.log(APIData);
         const [searchText, setSearchText] = useState('');
-        const [filteredData, setFilteredData] = useState(userData);
+        const [filteredData, setFilteredData] = useState(APIData);
         const { isOpen, onOpen, onClose } = useDisclosure()
       
         const handleChangeSearch = (e) => {
           const searchValue = e.target.value;
           setSearchText(searchValue);
       
-          // Filtrar los datos localmente
-          const filtered = userData.filter(
+          const filtered = APIData.filter(
             (item) =>
               item.nombre.toLowerCase().includes(searchValue.toLowerCase()) ||
               item.apellido.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -224,7 +127,7 @@ const Table = () => {
                     value={searchText}
                     onChange={handleChangeSearch}
             />
-            <label class="custom-file-input">
+            <label className="custom-file-input">
               <input type="file"/>
             </label>
 
