@@ -1,14 +1,21 @@
+
 .card_container_form{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/img563.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 .card_form {
     --accent-color: #ffd426;
     position: relative;
-    top: 5rem;
+    top: 2rem;
     width: 300px;
     height: 480px;
     background: white;
@@ -133,9 +140,11 @@
     }
   }
 
-  .input_nombre{
+  .nombre_form{
     display: flex;
-    gap: 0.2rem;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
   }
 
   .input_nombre input{
@@ -264,4 +273,50 @@
 
   .custom-checkbox:checked + .checkmark:before {
     display: none;
+  }
+
+
+  .form-control {
+    position: relative;
+    bottom: 1rem;
+    margin: 20px 0 40px;
+    width: 100px;
+  }
+  
+  .form-control input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px #000000 solid;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    color: #000000;
+  }
+  
+  .form-control input:focus,
+  .form-control input:valid {
+    outline: 0;
+    border-bottom-color: rgb(0, 0, 0);
+  }
+  
+  .form-control label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    pointer-events: none;
+  }
+  
+  .form-control label span {
+    display: inline-block;
+    font-size: 18px;
+    min-width: 5px;
+    color: #000000;
+    transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .form-control input:focus+label span,
+  .form-control input:valid+label span {
+    color: rgb(0, 0, 0);
+    transform: translateY(-20px);
   }

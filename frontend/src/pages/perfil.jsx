@@ -2,9 +2,12 @@ import React from "react";
 import "../assets/css/perfil.css"
 import candidato from "../assets/img/avatar.jpg"
 import MultiSelectCheckbox from "../components/buttomRadio";
+import Navbar from "../components/navbar";
 
 const Perfil = () => {
          return (
+        <div className="perfil_container">
+            <Navbar></Navbar>
         <div className="card_container_form">
         <div className="card_form">
             
@@ -16,10 +19,30 @@ const Perfil = () => {
         <div className="content_form">
             <form action="">
             <div className='name_full_form'>
-                <div className='nombre_fomr'> 
-                    <label>Nombre</label>
-                    <div className="input_nombre">
-                        <input type="text" /> <input type="text" />
+                <div className='nombre_form'> 
+                    <div className="form-control">
+                    <input required type="text" />
+                    <label>
+                        <span style={{ transitionDelay: '250ms' }}>N</span>
+                        <span style={{ transitionDelay: '200ms' }}>o</span>
+                        <span style={{ transitionDelay: '150ms' }}>m</span>
+                        <span style={{ transitionDelay: '100ms' }}>b</span>
+                        <span style={{ transitionDelay: '50ms' }}>r</span>
+                        <span style={{ transitionDelay: '0ms' }}>e</span>
+                    </label>
+                    </div>
+                    <div className="form-control">
+                    <input required type="text" />
+                    <label>
+                        <span style={{ transitionDelay: '250ms' }}>A</span>
+                        <span style={{ transitionDelay: '250ms' }}>p</span>
+                        <span style={{ transitionDelay: '200ms' }}>e</span>
+                        <span style={{ transitionDelay: '150ms' }}>l</span>
+                        <span style={{ transitionDelay: '100ms' }}>l</span>
+                        <span style={{ transitionDelay: '50ms' }}>i</span>
+                        <span style={{ transitionDelay: '0ms' }}>d</span>
+                        <span style={{ transitionDelay: '0ms' }}>o</span>
+                    </label>
                     </div>
                 </div>
             </div>
@@ -59,6 +82,7 @@ const Perfil = () => {
         
     </div>
     
+    </div>
     </div>
     )
 }
