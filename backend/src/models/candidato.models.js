@@ -73,8 +73,7 @@ class Candidato_model{
         try {
           const { id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion } = input;
           const existeUsuarioCandidato = await usuarioTieneCandidato(id_usuario_fk);
-            console.log(id_especialidad_fk);
-          if (existeUsuarioCandidato) {
+          if (!existeUsuarioCandidato.length == 0) {
             const updatedCandidato = await connection.query(`
               UPDATE candidato
               SET id_especialidad_fk = ?, id_nivel_ingles_fk = ?, avatar = ?, disponibilidad_viajar = ?, descripcion = ?

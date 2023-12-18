@@ -52,9 +52,7 @@ const especialidadExiste = async( id_especialidad = '') =>{
 const usuarioTieneCandidato = async( id_usuario_fk = '') =>{
     const existeCandidato = await connection.query(`
     SELECT * FROM candidato WHERE id_usuario_fk = ?`, [id_usuario_fk]);
-    if (existeCandidato.length === 0) {
-        throw new Error(`El usuario ${ id_usuario_fk }, no tiene candidato`);
-    }
+    return existeCandidato;
 }
 
 export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, documentoExiste, emailExiste, usuarioTieneCandidato };
