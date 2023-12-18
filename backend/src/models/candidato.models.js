@@ -1,4 +1,5 @@
 import dbConnection from "../database/connection.js";
+import { usuarioTieneCandidato } from "../helpers/db.validators.js";
 
 const connection = await dbConnection();
 
@@ -57,6 +58,7 @@ class Candidato_model{
     static async create({ input }){
         try {
             const { id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion } = input;
+            //si quiero que sea un update o create
             const candidato = await connection.query(`
             INSERT INTO candidato(id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion, estado)
             VALUES (?, ?, ?, ?, ?, ?, ?)

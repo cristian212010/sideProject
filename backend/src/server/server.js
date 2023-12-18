@@ -9,6 +9,7 @@ import { create_candidato_router } from '../routes/candidato.routes.js';
 import { create_login_router } from '../routes/auth.routes.js';
 import { create_tecnologia_router } from '../routes/tecnologia.routes.js';
 import { create_nivel_ingles_router } from '../routes/nivel_ingles.routes.js';
+import { create_candidato_tecnologia_router } from '../routes/candidato_tecnologia.routes.js';
 import Tipo_documento_model from '../models/tipo_documento.models.js';
 import Rol_model from '../models/rol.models.js';
 import Especialidad_model from '../models/especialidad.models.js';
@@ -16,6 +17,7 @@ import Usuario_model from '../models/usuario.models.js';
 import Candidato_model from '../models/candidato.models.js';
 import Tecnologia_model from '../models/tecnologia.models.js';
 import Nivel_ingles_models from '../models/nivel_ingles.models.js';
+import Candidato_tecnologia_models from '../models/candidato_tecnologia.models.js';
 
 class Server{
 
@@ -31,7 +33,8 @@ class Server{
             candidato: '/api/candidato',
             login: '/api/login',
             tecnologia: '/api/tecnologia',
-            nivel_ingles: '/api/nivel_ingles'
+            nivel_ingles: '/api/nivel_ingles',
+            candidato_tecnologia: '/api/candidato_tecnologia'
         };
         this.middlewares();
         this.routes();
@@ -51,7 +54,8 @@ class Server{
         this.app.use(this.paths.candidato, create_candidato_router({candidato_model: Candidato_model})),
         this.app.use(this.paths.login, create_login_router({usuario_model: Usuario_model})),
         this.app.use(this.paths.tecnologia, create_tecnologia_router({tecnologia_model: Tecnologia_model})),
-        this.app.use(this.paths.nivel_ingles, create_nivel_ingles_router({nivel_ingles_model: Nivel_ingles_models}))
+        this.app.use(this.paths.nivel_ingles, create_nivel_ingles_router({nivel_ingles_model: Nivel_ingles_models})),
+        this.app.use(this.paths.candidato_tecnologia, create_candidato_tecnologia_router({candidato_tecnologia_model: Candidato_tecnologia_models}))
     }
 
     listen(){
