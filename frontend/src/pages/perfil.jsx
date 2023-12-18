@@ -16,6 +16,8 @@ const Perfil = () => {
     const [nivelIngles, setNivelIngles] = useState([]);
     const [especialidad, setEspecialidad] = useState([]);
     const [tecnologia, setTecnologia] = useState([]);
+    const [candidatoData, setCandidatoData] = useState([]);
+    let idCandi = 0;
 
 
     useEffect(() => {
@@ -77,22 +79,6 @@ const Perfil = () => {
           descripcion: texto,
         };
 
-        /* seleccionados.map((datas)=>{
-            const tecnologiadForm = {
-                datas,
-                id_usuario_fk: Number(user_id)
-            }
-            try {
-                const response = axios.post('http://localhost:6996/api/candidato/', tecnologiadForm, {
-                    headers: {
-                    'x-api-token-jwt': token,
-                    }
-                });
-                console.log('Respuesta del servidor:', response.data);
-            } catch (error) {
-                console.error('Error al enviar el formulario:', error);
-            }
-        }) */
         
 
         try {
@@ -101,13 +87,47 @@ const Perfil = () => {
                   'x-api-token-jwt': token,
                 }
             });
+            if (response.status === 201) {
+                axios.get(`http://localhost:6996/api/candidato/one/${user_id}`)
+                    .then((response) => {
+                    setCandidatoData(response.data);
+                 })
+
+                 candidatoData.map((candi) =>{
+                    localStorage.setItem("idCandato", candi.id_candidato)
+                })
+                
+            }
             console.log('Respuesta del servidor:', response.data);
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
 
+         creacionTecnos();
 
       };
+
+      const creacionTecnos = () =>{
+        const token = localStorage.getItem('token');
+        seleccionados.map((datas)=>{
+            const id_candidato_fk = Number(localStorage.getItem("idCandato"));
+            const tecnologiasForm = {
+                id_tecnologia_fk: datas,
+                id_candidato_fk
+            }
+            try {
+                const response = axios.post('http://localhost:6996/api/candidato_tecnologia/', {tecnologiasForm}, {
+                    headers: {
+                    'x-api-token-jwt': token,
+                    }
+                });
+                console.log('Respuesta del servidor:', response.data);
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+            }
+        })
+        
+      }
 
       
 

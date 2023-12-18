@@ -7,7 +7,8 @@ class Candidato_tecnologia_controller{
     create = async(req, res)=>{
         try {
             const result = req.body;
-            const newCandidato = await this.candidato_tecnologia_model.create({input: result.data});
+            console.log(result);
+            const newCandidato = await this.candidato_tecnologia_model.create({input: result.tecnologiasForm});
             return res.status(201).json(newCandidato)
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' });
