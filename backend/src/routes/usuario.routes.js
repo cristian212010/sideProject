@@ -21,12 +21,18 @@ export const create_usuario_router = ({usuario_model}) =>{
     usuario_router.post('/', [
         validateJWT,
         isAdminRole,
-        check('id_rol_fk').custom(rolValido),
-        check('id_tipo_documento_fk').custom(tipoDocumentoExiste),
         check('documento').custom(documentoExiste),
         check('email').custom(emailExiste),
         validateDocuments
     ], usuario_controller.create);
+    usuario_router.post('/one', [
+        validateJWT,
+        isAdminRole,
+        check('id_tipo_documento_fk').custom(tipoDocumentoExiste),
+        check('documento').custom(documentoExiste),
+        check('email').custom(emailExiste),
+        validateDocuments
+    ], usuario_controller.createOne);
     usuario_router.delete('/:id', [
         validateJWT,
         isAdminRole

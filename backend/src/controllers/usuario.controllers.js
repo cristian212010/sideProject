@@ -50,6 +50,23 @@ class Usuario_controller {
         }
     }
 
+    createOne = async(req, res) =>{
+        try {
+            const result = validateUsuario(req.body);
+
+            if (!result.success) {
+                return res.status(404).json({error: JSON.parse(result.error.message)});
+            }
+
+            const newUsuario = await this.usuario_model.create({input: result.data})
+
+            return res.json(newUsuario)
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
     delete = async(req, res) =>{
         try {
             const id = req.params.id;
