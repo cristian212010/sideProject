@@ -32,12 +32,13 @@ const Table = () => {
         const [excelFileError, setExcelFileError] = useState(null);
         const [tipo_documento, setTipoDocumento] = useState([]);
         const [formData, setFormData] = useState({
-          nombre: '',
-          apellido: '',
-          correo: '',
-          tipoDocumento: '',
-          numeroDocumento: '',
+          nombres: '',
+          apellidos: '',
+          email: '',
+          tipo_documento: '',
+          documento: '',
         });
+        console.log(formData);
 
         console.log(excelData);
 
@@ -103,9 +104,42 @@ const Table = () => {
             });
           }
           else{
-
+            setExcelData(null);
           }
         }
+
+        const handleInputChange = (e) => {
+          const { name, value } = e.target;
+          setFormData({ ...formData, [name]: value });
+        };
+
+
+        const handleAddUserSubmit = async (e) => {
+          e.preventDefault();
+          const token = localStorage.getItem('token');
+          try {
+            const response = await axios.post(
+              'http://localhost:6996/api/usuario/one',formData,
+              {
+                headers: {
+                  'x-api-token-jwt': token,
+                },
+              }
+            );
+            console.log('Usuario creado:', response.data);
+    
+            setFormData({
+              nombres: '',
+              apellidos: '',
+              email: '',
+              tipo_documento: '',
+              documento: '',
+            });
+            onClose();
+          } catch (error) {
+            console.error('Error al crear usuario:', error);
+          }
+        };
 
         const columns = [
         {
@@ -222,45 +256,80 @@ const Table = () => {
     </div>
     <>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalContent>
-          <ModalHeader>Añadir nuevo usuario</ModalHeader>
-          <ModalBody>
-            <FormControl>
-              <FormLabel>Nombre</FormLabel>
-                <Input type='text' required/>
-              <FormLabel>Apellido</FormLabel>
-                <Input type='text' required/>
-              <FormLabel>Correo Electronico</FormLabel>
-                <Input type='email' required/>
-              <FormLabel>Correo Electronico</FormLabel>
-                <Input type='email' required/>
-              <FormLabel>Tipo Documento</FormLabel>
-                <Select placeholder='Selecciona un tipo de Documento'>
-                  {
-                    tipo_documento.map((data, index)=>{
-                      return(
-                        <option key={index} value={data.id_tipo_documento}>{data.tipo_documento}</option>
-                      )
-                    })
-                  }
-                </Select>
-              <FormLabel>Numero Documento</FormLabel>
-                <Input type='text' required/>
-            
-              <div className='grupo_btn'>
-              <Button className='sub_formulario' type='submit' colorScheme='purple' mr={3}>
-                Crear nuevo usuario
-              </Button>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
+  <ModalOverlay />
+  <ModalContent>
+    <ModalHeader>Añadir nuevo usuario</ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <form onSubmit={handleAddUserSubmit}>
+        <FormControl>
+          <FormLabel>Nombre</FormLabel>
+          <Input
+            type="text"
+            name="nombres"
+            value={formData.nombres}
+            onChange={handleInputChange}
+            required
+          />
+          <FormLabel>Apellido</FormLabel>
+          <Input
+            type="text"
+            name="apellidos"
+            value={formData.apellidos}
+            onChange={handleInputChange}
+            required
+          />
+          <FormLabel>Correo Electrónico</FormLabel>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <FormLabel>Tipo Documento</FormLabel>
+          <Select
+            placeholder="Selecciona un tipo de Documento"
+            name="tipo_documento"
+            value={formData.tipo_documento}
+            onChange={handleInputChange}
+          >
+            {tipo_documento.map((data, index) => (
+              <option key={index} value={data.id_tipo_documento}>
+                {data.tipo_documento}
+              </option>
+            ))}
+          </Select>
+          <FormLabel>Número Documento</FormLabel>
+          <Input
+            type="text"
+            name="documento"
+            value={formData.documento}
+            onChange={handleInputChange}
+            required
+          />
+
+          <div className="grupo_btn">
+            <Button
+              className="sub_formulario"
+              type="submit"
+              colorScheme="purple"
+              mr={3}
+            >
+              Crear nuevo usuario
+            </Button>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Cerrar
-              </Button>
-             </div>
-            </FormControl>
-            
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+            </Button>
+          </div>
+        </FormControl>
+      </form>
+    </ModalBody>
+    <ModalFooter></ModalFooter>
+  </ModalContent>
+</Modal>
+
     </>
     </div>
   );

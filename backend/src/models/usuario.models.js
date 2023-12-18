@@ -112,14 +112,14 @@ class Usuario_model {
 
     static async createOne({ input }){
         try {
-            const { id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, email } = input;
+            const { tipo_documento, nombres, apellidos, documento, email } = input;
             const password = passwordGenerate();
             const salt = bcryptjs.genSaltSync();
             const hashedPassword = bcryptjs.hashSync(password, salt);
             const usuario = await connection.query(`
             INSERT INTO usuario(id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email, estado)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-            , [id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, hashedPassword, email, false]);
+            , [2, tipo_documento, nombres, apellidos, documento, hashedPassword, email, false]);
             const data ={
                 documento,
                 password,
