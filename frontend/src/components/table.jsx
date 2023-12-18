@@ -30,6 +30,14 @@ const Table = () => {
         const [excelData, setExcelData] = useState(null);
         const [excelFile, setExcelFile] = useState(null);
         const [excelFileError, setExcelFileError] = useState(null);
+        const [tipo_documento, setTipoDocumento] = useState([]);
+        const [formData, setFormData] = useState({
+          nombre: '',
+          apellido: '',
+          correo: '',
+          tipoDocumento: '',
+          numeroDocumento: '',
+        });
 
         console.log(excelData);
 
@@ -44,6 +52,12 @@ const Table = () => {
             setAPIData(response.data);
             setFilteredData(response.data);
           })
+
+          axios.get('http://localhost:6996/api/tipo_documento')
+          .then((response) => {
+            setTipoDocumento(response.data);
+          })
+
         },[])
 
         const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
@@ -223,7 +237,13 @@ const Table = () => {
                 <Input type='email' required/>
               <FormLabel>Tipo Documento</FormLabel>
                 <Select placeholder='Selecciona un tipo de Documento'>
-                  <option value=''>Option</option>
+                  {
+                    tipo_documento.map((data, index)=>{
+                      return(
+                        <option key={index} value={data.id_tipo_documento}>{data.tipo_documento}</option>
+                      )
+                    })
+                  }
                 </Select>
               <FormLabel>Numero Documento</FormLabel>
                 <Input type='text' required/>
