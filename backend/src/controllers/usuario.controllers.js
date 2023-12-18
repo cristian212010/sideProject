@@ -58,7 +58,7 @@ class Usuario_controller {
                 return res.status(404).json({error: JSON.parse(result.error.message)});
             }
 
-            const newUsuario = await this.usuario_model.create({input: result.data})
+            const newUsuario = await this.usuario_model.createOne({input: result.data})
 
             return res.json(newUsuario)
         } catch (error) {
