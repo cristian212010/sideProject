@@ -28,6 +28,20 @@ class Candidato_model{
         }
     }
 
+    static async getOne({ id }){
+        try {
+            const candidato = await connection.query(`
+            SELECT *
+            FROM candidato
+            WHERE id_usuario_fk = ?;                  
+        `, [id]);
+            return candidato;
+        } catch (error) {
+            console.error('Error en getOne:', error)
+            throw error;
+        }
+    }
+
     static async getAssets(){
         try {
             const usuario = await connection.query(`
@@ -55,17 +69,27 @@ class Candidato_model{
         }
     }
 
-    static async create({ input }){
+    static async create({ input }) {
         try {
-            const { id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion } = input;
-            //si quiero que sea un update o create
-            const candidato = await connection.query(`
-            INSERT INTO candidato(id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion, estado)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+          const { id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion } = input;
+          const existeUsuarioCandidato = await usuarioTieneCandidato(id_usuario_fk);
+            console.log(id_especialidad_fk);
+          if (existeUsuarioCandidato) {
+            const updatedCandidato = await connection.query(`
+              UPDATE candidato
+              SET id_especialidad_fk = ?, id_nivel_ingles_fk = ?, avatar = ?, disponibilidad_viajar = ?, descripcion = ?
+              WHERE id_usuario_fk = ?
+            `, [id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion, id_usuario_fk]);
+            return updatedCandidato;
+          } else {
+            const newCandidato = await connection.query(`
+              INSERT INTO candidato(id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion, estado)
+              VALUES (?, ?, ?, ?, ?, ?, ?)
             `, [id_usuario_fk, id_especialidad_fk, id_nivel_ingles_fk, avatar, disponibilidad_viajar, descripcion, false]);
-            return candidato;
+            return newCandidato;
+          }
         } catch (error) {
-            console.error('Error en create', error);
+          console.error('Error en create', error);
         }
     }
 

@@ -77,7 +77,7 @@ const Perfil = () => {
           descripcion: texto,
         };
 
-        seleccionados.map((datas)=>{
+        /* seleccionados.map((datas)=>{
             const tecnologiadForm = {
                 datas,
                 id_usuario_fk: Number(user_id)
@@ -92,7 +92,7 @@ const Perfil = () => {
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
             }
-        })
+        }) */
         
 
         try {
@@ -126,7 +126,6 @@ const Perfil = () => {
         <div className="content_form">
             <form onSubmit={handleSubmit}>
             <div className='name_full_form'>
-            <input type="hidden" name="" value={user_id} />
             </div>
             <div className='espec_viaje_form'>
             <div className='espec_form'> 

@@ -16,6 +16,17 @@ class Candidato_controller{
         }
     }
 
+    getOne = async(req, res)=>{
+        try {
+            const id = req.params.id;
+            const candidato = await this.candidato_model.getOne({ id });
+            return res.json(candidato);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
     getAssets = async(req, res) =>{
         try {
             const candidato = await this.candidato_model.getAssets();

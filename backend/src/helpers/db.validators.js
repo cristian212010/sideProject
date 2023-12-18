@@ -53,7 +53,7 @@ const usuarioTieneCandidato = async( id_usuario_fk = '') =>{
     const existeCandidato = await connection.query(`
     SELECT * FROM candidato WHERE id_usuario_fk = ?`, [id_usuario_fk]);
     if (existeCandidato.length === 0) {
-        throw new Error(`La especialidad ${ id_usuario_fk }, no esta registrada en la base de datos`);
+        throw new Error(`El usuario ${ id_usuario_fk }, no tiene candidato`);
     }
 }
 
