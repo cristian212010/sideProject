@@ -78,15 +78,15 @@ const Table = () => {
             const data = XLSX.utils.sheet_to_json(workSheet);
             setExcelData(data);
             const token = localStorage.getItem('token');
-            axios.post('http://localhost:6996/api/usuario', {
-              headers: {
-                'x-api-token-jwt': token,
-              },
-            })
-            .then((response) => {
-              setAPIData(response.data);
-              setFilteredData(response.data);
-            })
+            data.map((datas) => {
+              const documentoString = datas.documento.toString();
+              console.log(datas);
+              axios.post('http://localhost:6996/api/usuario', { ...datas, documento: documentoString }, {
+                headers: {
+                  'x-api-token-jwt': token,
+                }
+              });
+            });
           }
           else{
 

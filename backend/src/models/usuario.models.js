@@ -1,7 +1,7 @@
 import dbConnection from "../database/connection.js";
 import bcryptjs from 'bcryptjs';
 import passwordGenerate from "../helpers/generate.password.js";
-import Candidato_model from "./candidato.models.js";
+import enviarCorreonuevoUsuario from "../nodemailer/enviarBienvenida.js";
 
 const connection = await dbConnection();
 
@@ -82,10 +82,8 @@ class Usuario_model {
 
     static async create({ input }){
         try {
-            let { tipo_documento, nombres, apellidos, documento, password, email } = input;
-            if (password.length == 0) {
-                password = passwordGenerate();
-            }
+            const { tipo_documento, nombres, apellidos, documento, email } = input;
+            const password = passwordGenerate();
             const [tipoDocumentoResult] = await connection.query(`
             SELECT id_tipo_documento
             FROM tipo_documento
@@ -98,7 +96,38 @@ class Usuario_model {
                 INSERT INTO usuario(id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `, [ 2, id_tipo_documento_fk , nombres, apellidos, documento, hashedPassword, email, true]);
-            await Candidato_model.create({id_usuario_fk: usuario.id_usuario, estado : false});
+            const data ={
+                documento,
+                password,
+                nombres,
+                apellidos,
+                email
+            }
+            await enviarCorreonuevoUsuario(data);
+            return usuario;
+        } catch (error) {
+            console.error('Error en create', error);
+        }
+    }
+
+    static async createOne({ input }){
+        try {
+            const { id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, email } = input;
+            const password = passwordGenerate();
+            const salt = bcryptjs.genSaltSync();
+            const hashedPassword = bcryptjs.hashSync(password, salt);
+            const usuario = await connection.query(`
+            INSERT INTO usuario(id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+            , [id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, hashedPassword, email, false]);
+            const data ={
+                documento,
+                password,
+                nombres,
+                apellidos,
+                email
+            }
+            await enviarCorreonuevoUsuario(data);
             return usuario;
         } catch (error) {
             console.error('Error en create', error);
