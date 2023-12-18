@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 200%;
   background-image: url(../img/img563.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,9 +14,8 @@
 
 .card_form {
     --accent-color: #ffd426;
-    position: relative;
-    top: 1rem;
-    width: 310px;
+    margin-top: 5rem;
+    width: 340px;
     height: auto;
     background: white;
     border: solid;
@@ -155,7 +154,7 @@
   }
 
   .espec_form select{
-    padding: 3px 25px;
+    padding: 3px 15px;
     font-family:var( --fuente-cuerpo-texto);
   }
 
@@ -174,8 +173,9 @@
     align-items: center;
   }
 
-
-
+  .level_ingles{
+    margin-bottom: 0.5rem;
+  }
 
 
 
