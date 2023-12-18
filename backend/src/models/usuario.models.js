@@ -1,5 +1,7 @@
 import dbConnection from "../database/connection.js";
 import bcryptjs from 'bcryptjs';
+import passwordGenerate from "../helpers/generate.password.js";
+import enviarCorreonuevoUsuario from "../nodemailer/enviarBienvenida.js";
 
 const connection = await dbConnection();
 
@@ -80,13 +82,52 @@ class Usuario_model {
 
     static async create({ input }){
         try {
-            const { id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email } = input;
+            const { tipo_documento, nombres, apellidos, documento, email } = input;
+            const password = passwordGenerate();
+            const [tipoDocumentoResult] = await connection.query(`
+            SELECT id_tipo_documento
+            FROM tipo_documento
+            WHERE nomenclatura = ?;
+            `, [tipo_documento]);
+            const id_tipo_documento_fk = tipoDocumentoResult?.id_tipo_documento;
             const salt = bcryptjs.genSaltSync();
             const hashedPassword = bcryptjs.hashSync(password, salt);
             const usuario = await connection.query(`
                 INSERT INTO usuario(id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `, [id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, hashedPassword, email, true]);
+            `, [ 2, id_tipo_documento_fk , nombres, apellidos, documento, hashedPassword, email, true]);
+            const data ={
+                documento,
+                password,
+                nombres,
+                apellidos,
+                email
+            }
+            await enviarCorreonuevoUsuario(data);
+            return usuario;
+        } catch (error) {
+            console.error('Error en create', error);
+        }
+    }
+
+    static async createOne({ input }){
+        try {
+            const { id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, email } = input;
+            const password = passwordGenerate();
+            const salt = bcryptjs.genSaltSync();
+            const hashedPassword = bcryptjs.hashSync(password, salt);
+            const usuario = await connection.query(`
+            INSERT INTO usuario(id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, password, email, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+            , [id_rol_fk, id_tipo_documento_fk, nombres, apellidos, documento, hashedPassword, email, false]);
+            const data ={
+                documento,
+                password,
+                nombres,
+                apellidos,
+                email
+            }
+            await enviarCorreonuevoUsuario(data);
             return usuario;
         } catch (error) {
             console.error('Error en create', error);
