@@ -49,4 +49,12 @@ const especialidadExiste = async( id_especialidad = '') =>{
     }
 }
 
-export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, documentoExiste, emailExiste };
+const usuarioTieneCandidato = async( id_usuario_fk = '') =>{
+    const existeCandidato = await connection.query(`
+    SELECT * FROM candidato WHERE id_usuario_fk = ?`, [id_usuario_fk]);
+    if (existeCandidato.length === 0) {
+        throw new Error(`La especialidad ${ id_usuario_fk }, no esta registrada en la base de datos`);
+    }
+}
+
+export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, documentoExiste, emailExiste, usuarioTieneCandidato };
