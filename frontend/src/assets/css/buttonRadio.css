@@ -1,0 +1,44 @@
+.custom-checkbox-label-radio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 2px 4px;
+    cursor: pointer;
+    background-color: #ffd426;
+    border-radius: 0.5rem;
+    color: white;
+  }
+
+  .button_radio_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    flex-wrap: wrap;
+  }
+  
+  .custom-checkbox-radio {
+    display: none;
+  }
+
+  .custom-checkbox-label-radio
+  
+  .custom-checkbox-square-radio {
+    width: 10px;
+    height: 10px;
+    border: 2px solid #ffffff;
+    margin-right: 8px;
+    position: relative;
+  }
+  
+  .custom-checkbox-radio:checked + .custom-checkbox-square-radio:after {
+    content: '\2713'; /* Símbolo de marca de verificación Unicode */
+    font-size: 10px;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
