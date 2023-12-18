@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../components/navbar";
 import Hero from "../components/hero";
 import Card from "../components/card";
+import Footer from "../components/footer";
 import '../assets/css/candidatos.css';
 
 const Candidatos = () =>{
@@ -62,6 +63,7 @@ const Candidatos = () =>{
                     }
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     )
 }

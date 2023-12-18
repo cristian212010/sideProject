@@ -1,5 +1,5 @@
 .card-filter {
-    background-color: #1f1f1f;
+    background-color: #272727;
 }
 
 .filter-container {
@@ -45,6 +45,6 @@
         );
     gap: 1rem;
     justify-content: center;
-    padding: 3rem 8rem 0 8rem;
+    padding: 3rem 8rem 3rem 8rem;
 }
 
