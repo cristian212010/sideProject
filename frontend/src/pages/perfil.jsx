@@ -1,11 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/css/perfil.css"
+import '../assets/css/buttonRadio.css';
 import candidato from "../assets/img/avatar.jpg"
-import MultiSelectCheckbox from "../components/buttomRadio";
 import Navbar from "../components/navbar";
 
+
 const Perfil = () => {
-         return (
+
+    const user_id = localStorage.getItem("id_usuario")
+
+    const [isChecked, setIsChecked] = useState(false);
+    const [texto, setTexto] = useState('');
+
+    const opciones = ['NodeJs', 'AWS', 'Php'];
+
+  // Estado local para realizar un seguimiento de las opciones seleccionadas
+  const [seleccionados, setSeleccionados] = useState([]);
+
+  // Función para manejar cambios en la selección
+  const handleSelect = (opcion) => {
+    // Si la opción ya está seleccionada, quítala; de lo contrario, agrégala
+    if (seleccionados.includes(opcion)) {
+      setSeleccionados(seleccionados.filter((item) => item !== opcion));
+    } else {
+      setSeleccionados([...seleccionados, opcion]);
+    }
+    }
+
+    console.log(typeof seleccionados);
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+      };
+
+    const handleTextoChange = (event) => {
+        setTexto(event.target.value);
+      };
+
+      
+
+
+    return (
         <div className="perfil_container">
             <Navbar></Navbar>
         <div className="card_container_form">
@@ -19,32 +54,7 @@ const Perfil = () => {
         <div className="content_form">
             <form action="">
             <div className='name_full_form'>
-                <div className='nombre_form'> 
-                    <div className="form-control">
-                    <input required type="text" />
-                    <label>
-                        <span style={{ transitionDelay: '250ms' }}>N</span>
-                        <span style={{ transitionDelay: '200ms' }}>o</span>
-                        <span style={{ transitionDelay: '150ms' }}>m</span>
-                        <span style={{ transitionDelay: '100ms' }}>b</span>
-                        <span style={{ transitionDelay: '50ms' }}>r</span>
-                        <span style={{ transitionDelay: '0ms' }}>e</span>
-                    </label>
-                    </div>
-                    <div className="form-control">
-                    <input required type="text" />
-                    <label>
-                        <span style={{ transitionDelay: '250ms' }}>A</span>
-                        <span style={{ transitionDelay: '250ms' }}>p</span>
-                        <span style={{ transitionDelay: '200ms' }}>e</span>
-                        <span style={{ transitionDelay: '150ms' }}>l</span>
-                        <span style={{ transitionDelay: '100ms' }}>l</span>
-                        <span style={{ transitionDelay: '50ms' }}>i</span>
-                        <span style={{ transitionDelay: '0ms' }}>d</span>
-                        <span style={{ transitionDelay: '0ms' }}>o</span>
-                    </label>
-                    </div>
-                </div>
+            <input type="hidden" name="" value={user_id} />
             </div>
             <div className='espec_viaje_form'>
             <div className='espec_form'> 
@@ -54,22 +64,57 @@ const Perfil = () => {
                     <option value="">opcion 2</option>
                 </select>
             </div>
+
+            <div className='espec_form'> 
+                <label>Especialidad</label>
+                <select name="Selecciona una opcion" id="">
+                    <option value="">opcion 1</option>
+                    <option value="">opcion 2</option>
+                </select>
+            </div>
             <div className='Viaje_form'> 
                 <label>Viajar</label>
-                <div className="checkbox-container">
+                    <div className="checkbox-container">
                     <label className="checkbox-label">
                         <input
                         type="checkbox"
                         className="custom-checkbox"
+                        checked={isChecked}
+                        value={isChecked} 
+                        onChange={handleCheckboxChange} 
                         />
                         <span className="checkmark"></span>
-                        
                     </label>
-                </div>
+                    </div>
             </div>
             </div>
             <div className='tegnologias_form'>
-                  <MultiSelectCheckbox></MultiSelectCheckbox>
+                   <div className='button_radio_container'>
+                    {opciones.map((opcion) => (
+                        <label key={opcion} className="custom-checkbox-label-radio">
+                        <input
+                            type="checkbox"
+                            checked={seleccionados.includes(opcion)}
+                            onChange={() => handleSelect(opcion)}
+                            className="custom-checkbox-radio"
+                        />
+                        <div className="custom-checkbox-square-radio"></div>
+                        {opcion}
+                        </label>
+                    ))}
+                    </div>
+            </div>
+            <div className="descriccion_form">
+                <div>
+                    <label htmlFor="large-text-input">Descripcion:</label>
+                    <textarea
+                        id="large-text-input"
+                        value={texto}
+                        onChange={handleTextoChange}
+                        rows={6} 
+                        cols={37} 
+                    ></textarea>
+            </div>
             </div>
         
 
