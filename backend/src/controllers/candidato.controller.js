@@ -25,6 +25,15 @@ class Candidato_controller{
         }
     }
 
+    getPendingAssets = async(req, res) =>{
+        try {
+            const candidato = await this.candidato_model.getPendingAssets();
+            return res.json(candidato);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
     create = async(req, res)=>{
         try {
             const result = validateCandidato(req.body);
