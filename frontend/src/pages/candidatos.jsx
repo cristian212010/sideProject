@@ -13,6 +13,7 @@ const Candidatos = () =>{
         axios.get(`http://localhost:6996/api/candidato/activos`)
           .then((response) => {
             setAPIData(response.data);
+            console.log(response.data);
           })
     },[])
 
@@ -56,6 +57,7 @@ const Candidatos = () =>{
                                     avatar={data.avatar}
                                     disponibilidad_viajar={data.disponibilidad_viajar}
                                     tecnologias={data.tecnologias}
+                                    descripcion={data.descripcion}
                                     key={index}>
                                 </Card>
                             )

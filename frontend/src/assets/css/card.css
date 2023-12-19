@@ -342,7 +342,7 @@
 .content label{
   color: #bcbbbb;
 }
-.content h3{
+.content h5{
   color: #8f8f8f;
 }
 
@@ -354,17 +354,14 @@
 }
 
 
-.content .name_full h3{
+.content .name_full h5{
   position: relative;
-  bottom: 1rem;
-  
+  margin-bottom: 1rem;
 }
 
 
-.content .espec_viaje h3{
+.content .espec_viaje h5{
   position: relative;
-  bottom:1rem;
-
 }
 
 
@@ -393,3 +390,19 @@
   font-size: 0.8rem;
 }
 
+.modal_form{
+  display: flex;
+  flex-direction: column;
+  min-width: 80%;
+}
+
+.modal_form_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mover_abajo{
+  margin-bottom: 0.5rem;
+}

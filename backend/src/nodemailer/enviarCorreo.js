@@ -69,14 +69,14 @@ const emailTemplate = `<!DOCTYPE html>
 
             <h2 style="color: #E4E4DB; text-align: center;">Peticion de Informacion del Candidato</h2>
 
-            <p style="color: #E4E4DB; text-align: center;">El empleador: ${data.nombre}.</p>
-            <p style="color: #E4E4DB; text-align: center;">De la Empresa: ${data.empresa}.</p>
-            <p style="color: #E4E4DB; text-align: center;">Quisiera poder tener mas informacion acerca del candidato <NOMBRE CANDIDATO></NOMBRE CANDIDATO>.</p>
+            <p style="color: #E4E4DB; text-align: center;">El empleador: ${data.data.nombre}.</p>
+            <p style="color: #E4E4DB; text-align: center;">De la Empresa: ${data.data.empresa}.</p>
+            <p style="color: #E4E4DB; text-align: center;">Quisiera poder tener mas informacion acerca del candidato ${data.data.nombre_candidato}.</p>
 
 
             <p style="color: #E4E4DB; text-align: center;">Los contactos de la empresa son:</p>
-            <p style="color: #E4E4DB; text-align: center;">Telefono: ${data.telefono}</p>
-            <p style="color: #E4E4DB; text-align: center;">Email: ${data.email}</p>
+            <p style="color: #E4E4DB; text-align: center;">Telefono: ${data.data.telefono}</p>
+            <p style="color: #E4E4DB; text-align: center;">Email: ${data.data.email}</p>
 
             <hr>
             <div class="derechos">
@@ -120,7 +120,7 @@ const imageAttachment = [
 // Detalles del correo electrónico
 const mailOptions = {
     from: 'Contrataciones',
-    to: `${data.correo}`,
+    to: process.env.NODE_USER,
     subject: 'Testeando',
     html: emailTemplate,
     attachments: imageAttachment
