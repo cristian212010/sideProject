@@ -75,6 +75,7 @@ class Candidato_model{
                 SELECT
                     candidato.id_candidato,
                     CONCAT(usuario.nombres, ' ', usuario.apellidos) as nombre_usuario,
+                    usuario.email,
                     especialidad.especialidad as nombre_especialidad,
                     nivel_ingles.nivel_ingles as nivel_de_ingles,
                     candidato.avatar,
