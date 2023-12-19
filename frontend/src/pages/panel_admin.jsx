@@ -76,7 +76,7 @@ const Panel_Admin = () =>{
             <div className="cartas_candidatos">
                 {datosCandidato.map((candidato, index) => (
                 <div key={index} className="carta_panel_candidatos">
-                    <h3>{candidato.nombre_usuario}</h3>
+                    <h5>{candidato.nombre_usuario}</h5>
                     <button className="btn_panel" onClick={() => handleVerDatos(candidato)}>
                     Ver Datos
                     </button>
