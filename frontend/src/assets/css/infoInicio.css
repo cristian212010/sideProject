@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 30rem;
+  padding: 3rem;
+}
+
+.text-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 35rem;
+}
+
+.text-content h2{
+  font-family: var(--fuente-titulos);
+}
+
+.text-content p{
+  font-family: var(--fuente-cuerpo-texto);
+}
+  
+.image-section {
+  width: 50%;
+  position: relative;
+}
+  
+.image-content {
+  max-width: 100%;
+  height: auto;
+}
+  
