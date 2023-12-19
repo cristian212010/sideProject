@@ -2,11 +2,13 @@ import React, {useState,useEffect } from "react";
 import Navbar from "../components/navbar";
 import '../assets/css/panel_admin.css'
 import axios from "axios";
+import { Link,useHistory  } from 'react-router-dom';
 
 const Panel_Admin = () =>{
     
     const [datosCandidato, setDatosCandidato] = useState([]);
     const [candidatoSeleccionado, setCandidatoSeleccionado] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
         axios.get('http://localhost:6996/api/candidato/pendientes/')
@@ -20,7 +22,21 @@ const Panel_Admin = () =>{
     }, []);
 
     const AceptarCandidato = (id) => {
-        console.log(id);  
+        const token = localStorage.getItem('token');
+        try {
+            const response = axios.patch(`http://localhost:6996/api/candidato/estado/${id}`,{
+                headers: {
+                    'x-api-token-jwt': token,
+                }
+            });
+            console.log('Respuesta del servidor:', response.data);
+            setTimeout(() => {
+                history.push("/candidatos");
+              }, 1000);
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error);
+        }
+    
     };
 
     const RechazarCandidato = (data) => {
@@ -89,7 +105,9 @@ const Panel_Admin = () =>{
                     <p>Tecnologias: {candidatoSeleccionado.tecnologias}</p>
                     </div>
                     <div className="btn_candidatos">
+                        
                         <button className="btn_aceptar_canidatos" onClick={() => AceptarCandidato(candidatoSeleccionado.id_candidato)}>Aceptar</button>
+
                         <button className="btn_rechazar_canidatos" onClick={() => RechazarCandidato(candidatoSeleccionado) }>Rechazar</button>
                     </div>
                     </div>

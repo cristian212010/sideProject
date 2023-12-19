@@ -64,10 +64,11 @@
   gap: 0.3rem;
 }
 
-.card .button-container .button {
+.card .button-container button {
   border-radius: 1.4rem 1.4rem 0.7rem 0.7rem;
   border: none;
   padding: 0.5rem 0;
+  justify-content: center;
   background: var(--accent-color);
   color: white;
   font-weight: 900;
@@ -352,15 +353,11 @@
   margin-bottom: -1rem;
 }
 
-.content .name_full label {
-  position: relative;
-  right: 1rem;
-}
 
 .content .name_full h3{
   position: relative;
-  bottom:1rem;
-  left: 1.5rem;
+  bottom: 1rem;
+  
 }
 
 
