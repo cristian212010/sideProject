@@ -142,6 +142,21 @@ class Candidato_model{
         }
     }
 
+    static async updateEstado({ id }) {
+    try {
+        const updateStatusQuery = await connection.query(`
+            UPDATE candidato SET estado = true
+            WHERE id_candidato = ?
+        `, [id]);
+
+        return updateStatusQuery;
+    } catch (error) {
+        console.error('Error en updateStatus', error);
+    }
+
+}
+
+
 }
 
 export default Candidato_model;

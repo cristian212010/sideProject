@@ -82,6 +82,17 @@ class Candidato_controller{
         }
     }
 
+    
+    updateEstado = async(req, res) =>{
+        try {
+            const id = req.params.id;
+            const updateCandidato = await this.candidato_model.updateEstado({id: id});
+            return res.json(updateCandidato);
+        } catch (error) {
+            res.status(400).json({message: error});
+        }
+    }
+
 }
 
 export default Candidato_controller;

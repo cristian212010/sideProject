@@ -19,6 +19,8 @@ export const create_candidato_router = ({ candidato_model }) =>{
         check('id_especialidad_fk').custom(especialidadExiste),
         validateDocuments
     ], candidato_controller.create);
+    candidato_router.patch('/estado/:id', candidato_controller.updateEstado);
+
 
     return candidato_router;
 }
