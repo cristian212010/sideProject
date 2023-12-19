@@ -54,11 +54,26 @@ const Navbar = () => {
       <div className="menu">
         <img src={campus} alt="logo" className="logo" />
         <ul className="options">
+          <Link to="/inicio">
           <li>Quiénes somos</li>
+          </Link>
+          <Link to="/candidatos">
           <li>Candidatos</li>
-          <li>Contacto</li>
+          </Link>
           {documento === "ADMIN" && (
-            <li>Usuarios</li>
+            <Link to="/usuarios">
+              <li>Usuarios</li>
+            </Link>
+          )}
+          {documento === "ADMIN" && (
+            <Link to="/panel_admin">
+              <li>Autorizar</li>
+            </Link>
+          )}
+          {documento === "USER" && (
+            <Link to="/perfil">
+            <li>Perfil</li>
+            </Link>
           )}
         </ul>
       </div>
