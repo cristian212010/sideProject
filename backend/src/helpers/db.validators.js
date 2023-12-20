@@ -49,10 +49,16 @@ const especialidadExiste = async( id_especialidad = '') =>{
     }
 }
 
+const candidatoTieneTecnologia = async( id_candidato_fk = '', id_tecnologia_fk = '') =>{
+    const exiteEspecialidadEnCandidato = await connection.query(`
+    SELECT * FROM candidato_tecnologia WHERE id_candidato_fk = ? AND id_tecnologia_fk = ?`, [id_candidato_fk,id_tecnologia_fk])
+    return exiteEspecialidadEnCandidato
+} 
+
 const usuarioTieneCandidato = async( id_usuario_fk = '') =>{
     const existeCandidato = await connection.query(`
     SELECT * FROM candidato WHERE id_usuario_fk = ?`, [id_usuario_fk]);
     return existeCandidato;
 }
 
-export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, documentoExiste, emailExiste, usuarioTieneCandidato };
+export { rolValido, tipoDocumentoExiste, usuarioExiste, especialidadExiste, candidatoTieneTecnologia ,documentoExiste, emailExiste, usuarioTieneCandidato };

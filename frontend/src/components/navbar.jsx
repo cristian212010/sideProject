@@ -51,6 +51,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("documento");
     localStorage.removeItem("token");
+    localStorage.removeItem("idCandato");
     setDocumento(null);
   };
 
