@@ -88,10 +88,14 @@ const Panel_Admin = () =>{
                 {candidatoSeleccionado && (
                     <div>
                     <div className="contenido">
-                    <h3>Especialidad:{candidatoSeleccionado.nombre_especialidad}</h3>
-                    <p>Nivel Ingles: {candidatoSeleccionado.nivel_de_ingles}</p>
+                    <h3>Especialidad:</h3>
+                    <h3>{candidatoSeleccionado.nombre_especialidad}</h3>
+                    <p>Nivel Ingles:</p>
+                    <p>{candidatoSeleccionado.nivel_de_ingles}</p>
                     <p>
-                    Disponibilidad para viajar: {' '}
+                    Disponibilidad para viajar:
+                    </p>
+                    {' '}
                     <span
                         style={{
                         color: candidatoSeleccionado.disponibilidad_viajar === 0 ? 'red' : 'green',
@@ -100,9 +104,10 @@ const Panel_Admin = () =>{
                     >
                         {candidatoSeleccionado.disponibilidad_viajar === 0 ? '✗ No' : '✔ Sí'}
                     </span>
-                    </p>
-                    <p>Descripcion: {candidatoSeleccionado.descripcion}</p>
-                    <p>Tecnologias: {candidatoSeleccionado.tecnologias}</p>
+                    <p>Descripcion:</p>
+                    <p> {candidatoSeleccionado.descripcion}</p>
+                    <p>Tecnologias:</p>
+                    <p>{candidatoSeleccionado.tecnologias}</p>
                     </div>
                     <div className="btn_candidatos">
                         

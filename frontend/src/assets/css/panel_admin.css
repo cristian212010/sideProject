@@ -84,12 +84,23 @@
     width: 98%;
     height: 98% !important;
     border-radius: 0.5rem;
+    overflow-y: auto;
+  }
+
+  .contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
 
 .btn_candidatos{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -99,4 +110,78 @@
 
 .btn_rechazar_canidatos{
   background-color: red;
+}
+
+
+@media only screen and (max-width: 845px){
+  .cartas_candidatos {
+    flex: 1; /* Esto permite que ocupe el espacio disponible */
+    padding: 10px; /* Añade espacio alrededor para mejorar la apariencia */
+    background-color: #18181B;
+  }
+  
+  .informacion_candidato {
+    flex: 0 0 65%; /* Esto fija el tamaño y evita que crezca más allá del 25% del contenedor principal */
+    padding: 10px; /* Añade espacio alrededor para mejorar la apariencia */
+    background-color: #18181B;
+    overflow-y: auto;
+  }
+
+  .carta_panel_candidatos{
+    max-width: 6rem;
+    max-height: 7rem;
+    padding: 5px 3px;
+  }
+
+  .carta_panel_candidatos h5{
+    font-size: 0.7rem;
+  }
+
+  .btn_panel{
+    max-width: 5rem;
+    max-height: 2rem;
+    font-size: 0.6rem;
+    text-align: center;
+  }
+
+  .btn_candidatos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn_aceptar_canidatos{
+    background-color: green;
+  }
+  
+  .btn_rechazar_canidatos{
+    background-color: red;
+  }
+
+  .contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contenido h3{
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .contenido p{
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .cuadro_info_panel{
+    height: auto !important;
+    padding: 0.5rem 0rem;
+    margin-top: 3rem;
+  }
+  
+
 }
