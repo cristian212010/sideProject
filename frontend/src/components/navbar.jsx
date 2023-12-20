@@ -8,6 +8,7 @@ const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [documento, setDocumento] = useState(null);
   const [usuario, setUsuario] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -15,6 +16,10 @@ const Navbar = () => {
     } else {
       setScrolling(false);
     }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const getUser = async(documento)=> {
@@ -53,7 +58,7 @@ const Navbar = () => {
     <div className={`navbar-container ${scrolling ? 'scrolling' : ''}`}>
       <div className="menu">
         <img src={campus} alt="logo" className="logo" />
-        <ul className="options">
+        <ul className={`options ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/inicio">
           <li>Quiénes somos</li>
           </Link>
@@ -76,6 +81,37 @@ const Navbar = () => {
             </Link>
           )}
         </ul>
+        <div className="hamburger-menu" onClick={toggleMenu}>
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
+      {/* Resto del código ... */}
+      {isMenuOpen && (
+         <ul className="options">
+         <Link to="/inicio">
+         <li>Quiénes somos</li>
+         </Link>
+         <Link to="/candidatos">
+         <li>Candidatos</li>
+         </Link>
+         {documento === "ADMIN" && (
+           <Link to="/usuarios">
+             <li>Usuarios</li>
+           </Link>
+         )}
+         {documento === "ADMIN" && (
+           <Link to="/panel_admin">
+             <li>Autorizar</li>
+           </Link>
+         )}
+         {documento === "USER" && (
+           <Link to="/perfil">
+           <li>Perfil</li>
+           </Link>
+         )}
+       </ul>
+      )}
       </div>
       {documento !== null && (
         <div className="user-circle" onClick={handleLogout}>
@@ -101,6 +137,7 @@ const Navbar = () => {
             </span>
           </button>
         )}
+        
       </div>
     </div>
   );

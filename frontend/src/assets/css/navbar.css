@@ -197,3 +197,85 @@
     color: white;
     font-size: 14px;
 }
+
+/* Estilos para el menú hamburguesa */
+.hamburger-menu {
+    display: none; /* Por defecto, oculto en pantallas grandes */
+    cursor: pointer;
+  }
+  
+  .hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 5px 0;
+  }
+  
+  .hamburger-menu.open span {
+    /* Estilos cuando el menú está abierto */
+    background-color: #fff; /* Cambia el color de las barras cuando el menú está abierto */
+  }
+
+  .hamburger-menu .options{
+    display: none;
+  }
+  
+  /* Mostrar el menú hamburguesa solo en pantallas pequeñas */
+  @media only screen and (max-width: 845px) {
+    .hamburger-menu {
+      display: block;
+    }
+  
+    .options {
+      display: none; /* Por defecto, oculto en pantallas pequeñas */
+      /* Otros estilos para el menú desplegable */
+    }
+  
+    .options.open {
+      display: flex; /* Mostrar solo cuando el menú está abierto */
+      flex-direction: column;
+      position: absolute;
+      top: 80px; /* Ajusta la posición según tu diseño */
+      left: 64px;
+      width: 60%;
+      background-color: rgba(46, 46, 46, 0.8); /* Ajusta el color de fondo según tu diseño */
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .navbar-container {
+        position: fixed;
+        top: auto;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 4rem 0.5rem 4rem;
+        z-index: 1000;
+    }
+    
+
+    .button_lg {
+        position: relative;
+        display: block;
+        padding: 0px 10px;
+        color: #fff;
+        background-color: #0f1923;
+        overflow: hidden;
+        box-shadow: inset 0px 0px 0px 1px transparent;
+    }
+
+    .container-button {
+        position: absolute;
+        top: 26%;
+        left: 55%;
+    }
+
+    .user-circle{
+        display: none;
+    }
+  }
+  

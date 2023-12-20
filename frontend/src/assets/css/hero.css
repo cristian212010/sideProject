@@ -48,3 +48,26 @@
     margin: 0; 
     font-family: var(--fuente-cuerpo-texto);
 }
+
+@media only screen and (max-width: 845px){
+
+    .hero-titulo{
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-family: var(--fuente-titulos);
+    }
+    
+    .hero-texto{
+        font-size: 1rem;
+        margin: 0; 
+        font-family: var(--fuente-cuerpo-texto);
+    }
+
+    .content {
+        text-align: center;
+        z-index: 1;
+        max-width: 20rem;
+        color: #f0f0f0;
+    }
+
+}
