@@ -71,7 +71,7 @@ const emailTemplate = `<!DOCTYPE html>
 
             <p style="color: #E4E4DB; text-align: center;">El empleador: ${data.data.nombre}.</p>
             <p style="color: #E4E4DB; text-align: center;">De la Empresa: ${data.data.empresa}.</p>
-            <p style="color: #E4E4DB; text-align: center;">Quisiera poder tener mas informacion acerca del candidato ${data.data.nombre_candidato}.</p>
+            <p style="color: #E4E4DB; text-align: center;">Quisiera poder tener mas informacion acerca del candidato/s ${data.data.nombre_candidato}.</p>
 
 
             <p style="color: #E4E4DB; text-align: center;">Los contactos de la empresa son:</p>

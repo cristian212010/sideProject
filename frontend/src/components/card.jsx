@@ -5,10 +5,10 @@ import avatarPerfil from '../assets/img/avatar.jpg';
 import { Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion, tecnologias, index }) => {
+const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion, tecnologias  }) => {
     const tecnologiasArray = tecnologias ? tecnologias.split(',') : []; 
     const [modalShow, setModalShow] = useState(false);
-    const [formData, setFormData] = useState([])
+    const [formData, setFormData] = useState([]);
 
     const handleShow = () => setModalShow(true);
     const handleClose = () => {
@@ -42,6 +42,16 @@ const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion,
           console.error('Error al enviar el formulario:', error);
         } 
       };
+
+      const setLocal = () =>{
+
+    const storedNombres = JSON.parse(localStorage.getItem('nombresSeleccionados')) || [];
+    const nuevosNombres = storedNombres.includes(nombre)
+      ? storedNombres.filter((n) => n !== nombre)
+      : [...storedNombres, nombre];
+
+    localStorage.setItem('nombresSeleccionados', JSON.stringify(nuevosNombres));
+      }
 
     return (
         <div className="card">
@@ -81,7 +91,7 @@ const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion,
         <div className="button-container" onClick={handleShow}>
             <button className="buy-button button">VER CANDIDATO</button>
         </div>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={setLocal}/>
         </div>
 
         <Modal show={modalShow} onHide={handleClose}>
@@ -93,7 +103,7 @@ const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion,
           <p>{descripcion}</p>
           <br />
           <h4>Contactar</h4>
-          {/* Agrega más campos según la información de la persona */}
+
           <form  className="modal_form" onSubmit={handleSubmit}>
                 <input type="hidden" name="nombre_candidato" value={nombre} />
               <label htmlFor="nombre">Nombre</label>
@@ -131,7 +141,7 @@ const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion,
                 value={formData.email}
                 required
               />
-              {/* Agrega más campos de formulario según sea necesario */}
+
               <button type="submit">Enviar</button>
             </form>
         </Modal.Body>
