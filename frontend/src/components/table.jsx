@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component'
 import '../assets/css/table.css'; 
 import * as XLSX from 'xlsx';
 import { Button } from '@chakra-ui/react';
+import { useHistory } from "react-router-dom";
 
 import {
   Modal,
@@ -38,11 +39,13 @@ const Table = () => {
           tipo_documento: '',
           documento: '',
         });
-        console.log(formData);
-
-        console.log(excelData);
+        const history = useHistory();
 
         useEffect(() => {
+          const rol = localStorage.getItem('rol');
+          if (rol==="USER" ||rol=== null) {
+              return history.push('/inicio')
+          }
           const token = localStorage.getItem('token');
           axios.get('http://localhost:6996/api/usuario', {
             headers: {

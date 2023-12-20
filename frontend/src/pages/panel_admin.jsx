@@ -10,6 +10,11 @@ const Panel_Admin = () =>{
     const [candidatoSeleccionado, setCandidatoSeleccionado] = useState(null);
     const history = useHistory();
 
+    const rol = localStorage.getItem('rol');
+    if (rol==="USER" ||rol=== null) {
+        history.push('/inicio')
+    }
+
     useEffect(() => {
         axios.get('http://localhost:6996/api/candidato/pendientes/')
           .then(response => {

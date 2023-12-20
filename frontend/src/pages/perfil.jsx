@@ -4,6 +4,7 @@ import '../assets/css/buttonRadio.css';
 import candidato from "../assets/img/avatar.jpg"
 import Navbar from "../components/navbar";
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 
 const Perfil = () => {
@@ -17,10 +18,15 @@ const Perfil = () => {
     const [especialidad, setEspecialidad] = useState([]);
     const [tecnologia, setTecnologia] = useState([]);
     const [candidatoData, setCandidatoData] = useState([]);
+    const history = useHistory();
     let idCandi = 0;
 
 
     useEffect(() => {
+        const rol = localStorage.getItem('rol');
+        if (rol==="ADMIN" ||rol=== null) {
+            return history.push('/inicio')
+        }
         const token = localStorage.getItem('token');
         axios.get('http://localhost:6996/api/nivel_ingles', {
           headers: {

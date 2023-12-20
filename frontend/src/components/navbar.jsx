@@ -41,6 +41,7 @@ const Navbar = () => {
         const usuario = await getUser(doc);
         setDocumento(usuario.rol);
         setUsuario(usuario);
+        localStorage.setItem("rol", usuario.rol);
       }
     }
     fetchUserData();
@@ -53,6 +54,7 @@ const Navbar = () => {
     localStorage.removeItem("documento");
     localStorage.removeItem("token");
     localStorage.removeItem("idCandato");
+    localStorage.removeItem("rol");
     setDocumento(null);
   };
 
