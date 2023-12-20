@@ -175,7 +175,7 @@ const Candidatos = () => {
                         </select>
 
                     </div>
-                    <button onClick={filtrarCandidatos}>Buscar</button>
+                    <button className="btn-buscar" onClick={filtrarCandidatos}>Buscar</button>
                     <button onClick={handleShow}>Consultar varios</button>
                     <Modal show={modalShow} onHide={handleClose}>
         <Modal.Header closeButton>
