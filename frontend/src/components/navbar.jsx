@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import campus from '../assets/img/campus.png'
+import avatarPerfil from '../assets/img/avatar.jpg';
 import axios from "axios";
 import '../assets/css/navbar.css';
 
@@ -116,7 +117,7 @@ const Navbar = () => {
       </div>
       {documento !== null && (
         <div className="user-circle" onClick={handleLogout}>
-          <img src={usuario?.avatar || '../assets/img/avatar.jpg'} alt="avatar" className="user-avatar" />
+          <img src={avatarPerfil} alt="avatar" className="user-avatar" />
           <span className="user-name">{usuario.nombres}</span>
         </div>
       )}
