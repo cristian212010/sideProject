@@ -16,8 +16,8 @@ const Candidatos = () => {
     const [selectedTecnologia, setSelectedTecnologia] = useState("");
     const [selectedDisponibilidadViajar, setSelectedDisponibilidadViajar] = useState("");
 
-    const handleEspecialidadChange = async (value) => {
-        await setSelectedEspecialidad(value);
+    const handleEspecialidadChange = (value) => {
+        setSelectedEspecialidad(value);
     };
 
     const handleNivelInglesChange = (value) => {

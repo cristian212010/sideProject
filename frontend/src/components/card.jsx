@@ -5,7 +5,7 @@ import avatarPerfil from '../assets/img/avatar.jpg';
 import { Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion, tecnologias }) => {
+const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion, tecnologias, index }) => {
     const tecnologiasArray = tecnologias ? tecnologias.split(',') : []; 
     const [modalShow, setModalShow] = useState(false);
     const [formData, setFormData] = useState([])
@@ -77,9 +77,13 @@ const Card = ({ nombre, especialidad, avatar, disponibilidad_viajar,descripcion,
             </div>
         </div>
 
+        <div className='container-opciones'>
         <div className="button-container" onClick={handleShow}>
             <button className="buy-button button">VER CANDIDATO</button>
         </div>
+        <input type="checkbox" />
+        </div>
+
         <Modal show={modalShow} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Información Del Candidato</Modal.Title>

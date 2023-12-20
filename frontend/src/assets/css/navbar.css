@@ -202,24 +202,24 @@
 .hamburger-menu {
     display: none; /* Por defecto, oculto en pantallas grandes */
     cursor: pointer;
-  }
+}
   
-  .hamburger-menu span {
+.hamburger-menu span {
     display: block;
     width: 25px;
     height: 3px;
     background-color: #ffffff;
     margin: 5px 0;
-  }
+}
   
-  .hamburger-menu.open span {
+.hamburger-menu.open span {
     /* Estilos cuando el menú está abierto */
     background-color: #fff; /* Cambia el color de las barras cuando el menú está abierto */
-  }
+}
 
-  .hamburger-menu .options{
+.hamburger-menu .options{
     display: none;
-  }
+}
   
   /* Mostrar el menú hamburguesa solo en pantallas pequeñas */
   @media only screen and (max-width: 845px) {
@@ -278,4 +278,9 @@
         display: none;
     }
   }
+
+.link-navbar{
+    text-decoration: none;
+    color: inherit;
+}
   

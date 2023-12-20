@@ -59,24 +59,24 @@ const Navbar = () => {
       <div className="menu">
         <img src={campus} alt="logo" className="logo" />
         <ul className={`options ${isMenuOpen ? 'open' : ''}`}>
-          <Link to="/inicio">
+          <Link to="/inicio" className="link-navbar">
           <li>Quiénes somos</li>
           </Link>
-          <Link to="/candidatos">
+          <Link to="/candidatos" className="link-navbar">
           <li>Candidatos</li>
           </Link>
           {documento === "ADMIN" && (
-            <Link to="/usuarios">
+            <Link to="/usuarios" className="link-navbar">
               <li>Usuarios</li>
             </Link>
           )}
           {documento === "ADMIN" && (
-            <Link to="/panel_admin">
+            <Link to="/panel_admin" className="link-navbar">
               <li>Autorizar</li>
             </Link>
           )}
           {documento === "USER" && (
-            <Link to="/perfil">
+            <Link to="/perfil" className="link-navbar">
             <li>Perfil</li>
             </Link>
           )}

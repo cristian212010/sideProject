@@ -1,3 +1,9 @@
+.container-opciones{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .card {
   --accent-color: #ffd426;
   position: relative;
@@ -81,7 +87,8 @@
 
 .card .button-container .buy-button {
   flex: auto;
-  max-width: 175px;
+  max-width: 190px;
+  padding: 1rem;
 }
 
 .card .button-container .cart-button {
