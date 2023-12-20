@@ -88,7 +88,7 @@ const Perfil = () => {
                 }
             });
             if (response.status === 201) {
-                axios.get(`http://localhost:6996/api/candidato/one/${user_id}`)
+                await axios.get(`http://localhost:6996/api/candidato/one/${user_id}`)
                     .then((response) => {
                     setCandidatoData(response.data);
                  })

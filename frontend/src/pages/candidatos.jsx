@@ -16,8 +16,8 @@ const Candidatos = () => {
     const [selectedTecnologia, setSelectedTecnologia] = useState("");
     const [selectedDisponibilidadViajar, setSelectedDisponibilidadViajar] = useState("");
 
-    const handleEspecialidadChange = async (value) => {
-        await setSelectedEspecialidad(value);
+    const handleEspecialidadChange = (value)  => {
+        setSelectedEspecialidad(value)
     };
 
     const handleNivelInglesChange = (value) => {
@@ -36,6 +36,7 @@ const Candidatos = () => {
         axios.get(`http://localhost:6996/api/candidato/activos`)
           .then((response) => {
             setAPIData(response.data);
+            console.log(response.data);
         })
         axios.get(`http://localhost:6996/api/especialidad`)
         .then((response) => {
@@ -48,6 +49,7 @@ const Candidatos = () => {
         axios.get(`http://localhost:6996/api/tecnologia`)
         .then((response) => {
             setAPITecnologia(response.data);
+            console.log(response.data);
         })
     },[])
 
@@ -85,7 +87,6 @@ const Candidatos = () => {
                             name="especialidad"
                             onChange={(e) => {
                                 handleEspecialidadChange(e.target.value);
-                                filtrarCandidatos();
                             }}
                         >
                             <option value="opcion1">Especialidades</option>
@@ -100,7 +101,6 @@ const Candidatos = () => {
                             value={selectedNivelIngles}
                             onChange={(e) => {
                                 handleNivelInglesChange(e.target.value);
-                                filtrarCandidatos();
                             }}
                         >
                             <option value="opcionA">Niveles de inglés</option>
@@ -115,7 +115,6 @@ const Candidatos = () => {
                             value={selectedTecnologia}
                             onChange={(e) => {
                                 handleTecnologiaChange(e.target.value);
-                                filtrarCandidatos();
                             }}
                         >
                             <option value="opcionA">Tecnologias</option>
@@ -130,14 +129,16 @@ const Candidatos = () => {
                             value={selectedDisponibilidadViajar}
                             onChange={(e) => {
                                 handleDisponibilidadViajarChange(e.target.value);
-                                filtrarCandidatos();
+
                             }}
                         >
                             <option value="">Disponibilidad viajar</option>
                             <option value="true">Si</option>
                             <option value="false">No</option>
                         </select>
+
                     </div>
+                    <button onClick={filtrarCandidatos}>Buscar</button>
                 </div>
                 <div className="card-container">
                     {APIData.map((data, index) => (
