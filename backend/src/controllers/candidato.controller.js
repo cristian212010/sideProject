@@ -93,6 +93,22 @@ class Candidato_controller{
         }
     }
 
+    getByFilters = async (req, res) => {
+        try {
+            const { id_especialidad, id_nivel_ingles, id_tecnologia, disponibilidad_viajar } = req.body;
+            const candidatos = await this.candidato_model.getByFilters({
+                id_especialidad,
+                id_nivel_ingles,
+                id_tecnologia,
+                disponibilidad_viajar
+            });
+            return res.json(candidatos);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
 }
 
 export default Candidato_controller;

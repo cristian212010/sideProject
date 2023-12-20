@@ -14,6 +14,7 @@ export const create_candidato_router = ({ candidato_model }) =>{
     candidato_router.get('/one/:id', candidato_controller.getOne);
     candidato_router.get('/activos', candidato_controller.getAssets);
     candidato_router.get('/pendientes', candidato_controller.getPendingAssets);
+    candidato_router.post('/filtrar', candidato_controller.getByFilters)
     candidato_router.post('/', [
         check('id_usuario_fk').custom(usuarioExiste),
         check('id_especialidad_fk').custom(especialidadExiste),

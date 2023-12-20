@@ -144,20 +144,50 @@ class Candidato_model{
     }
 
     static async updateEstado({ id }) {
-    try {
-        const updateStatusQuery = await connection.query(`
-            UPDATE candidato SET estado = true
-            WHERE id_candidato = ?
-        `, [id]);
+        try {
+            const updateStatusQuery = await connection.query(`
+                UPDATE candidato SET estado = true
+                WHERE id_candidato = ?
+            `, [id]);
 
-        return updateStatusQuery;
-    } catch (error) {
-        console.error('Error en updateStatus', error);
+            return updateStatusQuery;
+        } catch (error) {
+            console.error('Error en updateStatus', error);
+        }
     }
 
-}
-
-
+    static async getByFilters({ id_especialidad, id_nivel_ingles, id_tecnologia, disponibilidad_viajar }) {
+        try {
+            const candidatos = await connection.query(`
+                SELECT
+                    candidato.id_candidato,
+                    CONCAT(usuario.nombres, ' ', usuario.apellidos) as nombre_usuario,
+                    especialidad.especialidad as nombre_especialidad,
+                    nivel_ingles.nivel_ingles as nivel_de_ingles,
+                    candidato.avatar,
+                    candidato.disponibilidad_viajar,
+                    candidato.descripcion,
+                    GROUP_CONCAT(tecnologia.tecnologia) as tecnologias
+                FROM candidato
+                JOIN usuario ON candidato.id_usuario_fk = usuario.id_usuario
+                JOIN especialidad ON candidato.id_especialidad_fk = especialidad.id_especialidad
+                JOIN nivel_ingles ON candidato.id_nivel_ingles_fk = nivel_ingles.id_nivel_ingles
+                LEFT JOIN candidato_tecnologia ON candidato.id_candidato = candidato_tecnologia.id_candidato_fk
+                LEFT JOIN tecnologia ON candidato_tecnologia.id_tecnologia_fk = tecnologia.id_tecnologia
+                WHERE
+                    (? IS NULL OR especialidad.id_especialidad = ?) AND
+                    (? IS NULL OR nivel_ingles.id_nivel_ingles = ?) AND
+                    (? IS NULL OR tecnologia.id_tecnologia = ?) AND
+                    (? IS NULL OR candidato.disponibilidad_viajar = ?)
+                GROUP BY candidato.id_candidato;
+            `, [id_especialidad, id_especialidad, id_nivel_ingles, id_nivel_ingles, id_tecnologia, id_tecnologia, disponibilidad_viajar, disponibilidad_viajar]);
+            return candidatos;
+        } catch (error) {
+            console.error('Error en getByFilters:', error);
+            throw error;
+        }
+    }
+    
 }
 
 export default Candidato_model;

@@ -14,6 +14,23 @@ const Candidatos = () => {
     const [selectedEspecialidad, setSelectedEspecialidad] = useState("");
     const [selectedNivelIngles, setSelectedNivelIngles] = useState("");
     const [selectedTecnologia, setSelectedTecnologia] = useState("");
+    const [selectedDisponibilidadViajar, setSelectedDisponibilidadViajar] = useState("");
+
+    const handleEspecialidadChange = async (value) => {
+        await setSelectedEspecialidad(value);
+    };
+
+    const handleNivelInglesChange = (value) => {
+        setSelectedNivelIngles(value);
+    };
+
+    const handleTecnologiaChange = (value) => {
+        setSelectedTecnologia(value);
+    };
+
+    const handleDisponibilidadViajarChange = (value) => {
+        setSelectedDisponibilidadViajar(value);
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:6996/api/candidato/activos`)
@@ -34,6 +51,26 @@ const Candidatos = () => {
         })
     },[])
 
+    const filtrarCandidatos = () => {
+        const params = {
+            id_especialidad: selectedEspecialidad || null,
+            id_nivel_ingles: selectedNivelIngles || null,
+            id_tecnologia: selectedTecnologia || null,
+            disponibilidad_viajar: selectedDisponibilidadViajar || null
+        };
+
+        console.log(params);
+
+        axios.post(`http://localhost:6996/api/candidato/filtrar`, params)
+            .then((response) => {
+                console.log(response.data);
+                setAPIData(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
         <div>
             <Navbar></Navbar>
@@ -45,7 +82,11 @@ const Candidatos = () => {
                         <select
                             className="filter-select"
                             value={selectedEspecialidad}
-                            onChange={(e) => setSelectedEspecialidad(e.target.value)}
+                            name="especialidad"
+                            onChange={(e) => {
+                                handleEspecialidadChange(e.target.value);
+                                filtrarCandidatos();
+                            }}
                         >
                             <option value="opcion1">Especialidades</option>
                             {APIEspecialidad.map((especialidad) => (
@@ -57,7 +98,10 @@ const Candidatos = () => {
                         <select
                             className="filter-select"
                             value={selectedNivelIngles}
-                            onChange={(e) => setSelectedNivelIngles(e.target.value)}
+                            onChange={(e) => {
+                                handleNivelInglesChange(e.target.value);
+                                filtrarCandidatos();
+                            }}
                         >
                             <option value="opcionA">Niveles de inglés</option>
                             {APINivel_ingles.map((nivelIngles) => (
@@ -69,7 +113,10 @@ const Candidatos = () => {
                         <select
                             className="filter-select"
                             value={selectedTecnologia}
-                            onChange={(e) => setSelectedTecnologia(e.target.value)}
+                            onChange={(e) => {
+                                handleTecnologiaChange(e.target.value);
+                                filtrarCandidatos();
+                            }}
                         >
                             <option value="opcionA">Tecnologias</option>
                             {APITecnologia.map((tecnologia) => (
@@ -78,10 +125,17 @@ const Candidatos = () => {
                                 </option>
                             ))}
                         </select>
-                        <select className="filter-select">
-                            <option value="opcionA">Disponibilidad viajar</option>
-                            <option value={true}>Si</option>
-                            <option value={false}>No</option>
+                        <select
+                            className="filter-select"
+                            value={selectedDisponibilidadViajar}
+                            onChange={(e) => {
+                                handleDisponibilidadViajarChange(e.target.value);
+                                filtrarCandidatos();
+                            }}
+                        >
+                            <option value="">Disponibilidad viajar</option>
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
                         </select>
                     </div>
                 </div>
